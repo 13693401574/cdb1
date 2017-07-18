@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 命名空间， -->
+<mapper namespace="org.myitems.cdb1.companymag.mapper.CompanyUserMapper">
+	
+	<select id="countCompanyAlreadyRentCarportNumByMapToPager" resultType="int">
+		select count(id) from t_user
+		<include refid="commonSql"></include>
+	</select>
+	
+	<sql id="commonSql">
+		<!-- where标签出现的地方，会自动拼接一个where字符串，并且
+		会将where之后的第一个and或or使用空字符串取代掉 -->
+		<where>
+			<if test="map.userName != null">
+				and user_name like CONCAT(#{map.userName},'%')
+			</if>
+			<if test="map.password != null">
+				and pwd = #{map.password}
+			</if>
+		</where>
+	</sql>
+
+</mapper>

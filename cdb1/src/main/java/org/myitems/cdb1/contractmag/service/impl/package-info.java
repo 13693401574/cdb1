@@ -5,4 +5,4 @@
  * @author Administrator
  *
  */
-package org.myitems.cdb1.systenmag.dao;
+package org.myitems.cdb1.contractmag.service.impl;

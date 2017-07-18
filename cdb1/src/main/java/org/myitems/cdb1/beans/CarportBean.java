@@ -1,4 +1,7 @@
 package org.myitems.cdb1.beans;
+
+import java.util.Date;
+
 /**
  * CBD管理的车位表
  * @author ljj
@@ -11,6 +14,8 @@ public class CarportBean {
 	private String carportNumber;
 	/**车位地址*/
 	private String carportAddress;
+	/**最长可租日期*/
+	private Date endDate;
 	/**租户合约外键*/
 	private CompanyContractBean companyContract;
 	/**外部合约外键*/
@@ -19,6 +24,15 @@ public class CarportBean {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
 	public Long getId() {
 		return id;
 	}
