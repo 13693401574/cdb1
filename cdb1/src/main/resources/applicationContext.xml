@@ -13,9 +13,11 @@
 	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd" default-lazy-init="true">
-
+	
 	<!-- 第一步：定义扫包规则 -->
-	<context:component-scan base-package="org.myitems.cdb1"></context:component-scan>
+	<context:component-scan base-package="org.myitems.cdb1">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	<context:property-placeholder location="classpath:mysql.properties"
 		ignore-unresolvable="true" />
 
