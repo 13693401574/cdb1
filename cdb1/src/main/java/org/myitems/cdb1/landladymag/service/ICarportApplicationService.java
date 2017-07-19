@@ -17,6 +17,8 @@ public interface ICarportApplicationService {
 	 * @param carportApplication
 	 */
 	public void saveCarportApplication(CarportApplicationBean carportApplication);
+	
+	
 	/**
 	 * 根据车位申请Id查看车位申请的详细信息
 	 * @param id

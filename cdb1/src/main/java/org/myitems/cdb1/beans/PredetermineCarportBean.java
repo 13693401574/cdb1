@@ -33,8 +33,10 @@ public class PredetermineCarportBean {
 	/**状态*/
 	private String status;
 	
-//	/**抢租客实体Bean*/
-//	private RobTenantsBean robBean;
+	/**抢租客实体Bean*/
+	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
+	@JoinColumn(name="fkRobtenantId")
+	private RobTenantsBean robBean;
 	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
 	@JoinColumn(name="fkCorportIssueId")
 	/**发布车位信息实体Bean*/
@@ -65,12 +67,12 @@ public class PredetermineCarportBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-//	public RobTenantsBean getRobBean() {
-//		return robBean;
-//	}
-//	public void setRobBean(RobTenantsBean robBean) {
-//		this.robBean = robBean;
-//	}
+	public RobTenantsBean getRobBean() {
+		return robBean;
+	}
+	public void setRobBean(RobTenantsBean robBean) {
+		this.robBean = robBean;
+	}
 	public CarportIssueBean getCarBean() {
 		return carBean;
 	}
@@ -82,6 +84,11 @@ public class PredetermineCarportBean {
 	}
 	public void setLandlady(LandladyBean landlady) {
 		this.landlady = landlady;
+	}
+	@Override
+	public String toString() {
+		return "PredetermineCarportBean [id=" + id + ", message=" + message + ", status=" + status + ", robBean="
+				+ robBean + ", carBean=" + carBean + ", landlady=" + landlady + "]";
 	}
 	
 }

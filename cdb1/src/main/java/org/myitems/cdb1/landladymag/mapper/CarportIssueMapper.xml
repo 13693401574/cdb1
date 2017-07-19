@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper">
+	<select id="getCountCarportIssueListByItems" resultType="int">
+		select count(*) from t_carportIssue
+		<include refid="commonSql"></include>
+	
+	</select>
+	<select id="getCarportIssueListByItems" resultType="CarportIssueBean">
+		select * from t_carportIssue
+		<include refid="commonSql"></include>
+	</select>
+
+	<sql id="commonSql">
+		<where>
+			<if test="map.fkLandladyId != null">
+				and fkLandladyId=#{map.fkLandladyId}
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

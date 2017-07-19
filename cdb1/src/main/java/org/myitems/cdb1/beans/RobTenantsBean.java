@@ -4,27 +4,64 @@ package org.myitems.cdb1.beans;
  * @author ljj
  *
  */
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name="t_robTenants")
 public class RobTenantsBean {
+	@Id
+	@Column(name="id")
+	@GenericGenerator(name="hb",strategy="identity")
+	@GeneratedValue(generator="hb")
 	/**id*/
 	private Long id;
+	@Column(name="userName",length=20)
 	/**用户名*/
 	private String userName;
+	@Column(name="pwd",length=20)
 	/**密码*/
 	private String pwd;
+	@Column(name="realName",length=20)
 	/**真实姓名*/
 	private String realName;
+	@Column(name="address",length=50)
 	/**地址*/
 	private String address;
+	@Column(name="phone",length=11)
 	/**电话号码*/
 	private String phone;
+	@Column(name="idCard",length=18)
 	/**身份证号码*/
 	private String idCard;
+	@Column(name="jobDescribe",length=120)
 	/**职业描述*/
 	private String jobDescribe;
+	@Column(name="email",length=120)
 	/**邮箱地址*/
 	private String email;
+	@Column(name="credibility",length=20)
 	/**信誉度*/
-	private String credibility;
+	private String credibility="0/0";
+	@OneToMany(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY,mappedBy="robBean")
+	/**预约记录集合*/
+	private List<PredetermineCarportBean> predetermineCarportList;
+	/**抢租客对应的历史记录实体类集合*/
+	private List<DealBean> dealList;
+	/**抢租客对应的投诉类集合*/
+	private List<RobTenantsComplainBean> robTenantsComplainList;
 	public RobTenantsBean() {
 		super();
 		// TODO Auto-generated constructor stub

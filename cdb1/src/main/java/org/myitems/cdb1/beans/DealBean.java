@@ -31,8 +31,10 @@ public class DealBean {
 	@JoinColumn(name="fkLandladyId")
 	/**包租婆id外键*/
 	private LandladyBean landlady;
-//	/**抢租客id外键*/
-//	private RobTenantsBean robTenants;
+	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
+	@JoinColumn(name="fkRobManId")
+	/**抢租客id外键*/
+	private RobTenantsBean robTenants;
 	@Column(name="status")
 	/**状态*/
 	private String status;

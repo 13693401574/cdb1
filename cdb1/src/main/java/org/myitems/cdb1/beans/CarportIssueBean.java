@@ -44,11 +44,11 @@ public class CarportIssueBean {
 	/**状态*/
 	private String status;
 	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
-	@JoinColumn(name="fkLandladyId")
+	@JoinColumn(name="fkCarportApplicationId")
 	/**车位申请表实体Bean*/
 	private CarportApplicationBean appBean;
 	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
-	@JoinColumn(name="fkCarportApplicationId")
+	@JoinColumn(name="fkLandladyId")
 	/**包租婆实体类*/
 	private LandladyBean landlady;
 	@OneToOne(cascade=CascadeType.REMOVE,fetch=FetchType.EAGER,mappedBy="carportIssue")
@@ -102,6 +102,11 @@ public class CarportIssueBean {
 	}
 	public void setLandlady(LandladyBean landlady) {
 		this.landlady = landlady;
+	}
+	@Override
+	public String toString() {
+		return "CarportIssueBean [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", price=" + price
+				+ ", status=" + status + "]";
 	}
 	
 	

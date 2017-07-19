@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myitems.cdb1.landladymag.mapper.PredetermineCarportMapper">
+	<resultMap type="PredetermineCarportBean" id="predetermineCarportMap">
+		<id property="id" column="id" javaType="java.lang.Long"/>
+		<result property="message" column="message" javaType="java.lang.String"/>
+		<result property="status" column="status" javaType="java.lang.String"/>
+		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="lazy"></association>
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
+		<association property="carBean" javaType="CarportIssueBean" column="fkCorportIssueId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
+		</association>
+	</resultMap>
+	
+	<select id="getCountPredetermineCarportListByItems" resultType="int">
+		select count(*) from t_predetermineCarport
+	</select>
+	
+	<select id="getPredetermineCarportListByItems" resultMap="predetermineCarportMap">
+		select * from t_predetermineCarport
+	</select>
+	
+
+
+	<sql id="commonSql">
+		<where>
+			<if test="map.id!=null">
+				and id=#{id}
+			</if>
+		</where>
+	
+	</sql>
+</mapper>

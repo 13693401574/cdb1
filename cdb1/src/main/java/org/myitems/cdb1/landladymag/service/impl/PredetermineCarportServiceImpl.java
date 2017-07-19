@@ -17,8 +17,9 @@ public class PredetermineCarportServiceImpl implements IPredetermineCarportServi
 	@Resource
 	private IPredetermineCarportDao predetermineCarportDaoImpl;
 
-	public int updatePredetermineCarportById(Long id) {
+	public int updatePredetermineCarportById(Long id,Long fkCorportIssueId) {
 		// TODO Auto-generated method stub
+		predetermineCarportDaoImpl.updatePredetermineCarportByFkCorportIssueId(fkCorportIssueId);
 		return predetermineCarportDaoImpl.updatePredetermineCarportById(id);
 	}
 

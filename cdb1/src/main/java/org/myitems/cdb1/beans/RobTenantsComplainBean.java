@@ -1,18 +1,39 @@
 package org.myitems.cdb1.beans;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 抢租客投诉表实体类
  * @author ljj
  *
  */
+@Entity
+@Table(name="t_robTenantsComplain")
 public class RobTenantsComplainBean {
+	@Id
+	@Column(name="id")
+	@GenericGenerator(name="hb",strategy="identity")
+	@GeneratedValue(generator="hb")
 	/**id*/
 	private Long id;
+	@Column(name="complainant",length=20)
 	/**投诉人*/
 	private String complainant;
+	@Column(name="beComplaint",length=20)
 	/**被投诉人*/
 	private String beComplaint;
+	@Column(name="complainantDate")
 	/**投诉时间*/
-	private String complainantDate;
+	private Date complainantDate;
+	@Column(name="status")
 	/**投诉状态*/
 	private String status;
 	/**投诉理由*/
@@ -41,10 +62,10 @@ public class RobTenantsComplainBean {
 	public void setBeComplaint(String beComplaint) {
 		this.beComplaint = beComplaint;
 	}
-	public String getComplainantDate() {
+	public Date getComplainantDate() {
 		return complainantDate;
 	}
-	public void setComplainantDate(String complainantDate) {
+	public void setComplainantDate(Date complainantDate) {
 		this.complainantDate = complainantDate;
 	}
 	public String getStatus() {

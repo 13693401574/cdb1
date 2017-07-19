@@ -19,7 +19,12 @@ public interface IPredetermineCarportDao {
 	 * @return
 	 */
 	public int updatePredetermineCarportById(Long id);
-	
+	/**
+	 * 根据车位发布信息的id修改车位预约信息的状态
+	 * @param fkCorportIssueId
+	 * @return
+	 */
+	public int updatePredetermineCarportByFkCorportIssueId(Long fkCorportIssueId);
 	/**
 	 * 根据条件动态查询包租婆车位预约信息总条数
 	 * @param map

@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper>
+<mapper namespace="org.myitems.cdb1.landladymag.mapper.CarportApplicationMapper">
+	<!-- <resultMap type="CarportApplicationBean" id="carportApplicationMap">
+		<id property="id" column="id" javaType="java.lang.Long"/>
+		<result property="carportEquityCode" column="carportEquityCode" javaType="java.lang.String"/>
+		<result property="carportAddress" column="carportAddress" javaType="java.lang.String"/>
+		<result property="carportAddressCode" column="carportAddressCode" javaType="java.lang.String"/>
+		<result property="status" column="status" javaType="java.lang.String"/>
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy"></association>
+	
+	</resultMap> -->
+
+
 	<select id="getCountCarportApplicationByItems" resultType="int">
-		select count(id) from t_carportApplication where
-		<include refid=""></include>
+		select count(*) from t_carportApplication
+		<include refid="commonSql"></include>
 	
 	</select>
-	<select id="getCarportApplicationListByItems"></select>
+	<select id="getCarportApplicationListByItems" resultType="CarportApplicationBean">
+		select * from t_carportApplication
+		<include refid="commonSql"></include>
+	</select>
 
-
+	<sql id="commonSql">
+		<where>
+			<if test="map.fkLandladyId != null">
+				and fkLandladyId=#{map.fkLandladyId}
+			</if>
+			<if test="map.status != null">
+				and status='审核通过'
+			</if>
+		</where>
+		
+	</sql>
 
 
 

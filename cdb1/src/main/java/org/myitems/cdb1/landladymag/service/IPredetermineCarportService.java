@@ -21,7 +21,7 @@ public interface IPredetermineCarportService {
 	 * @param id
 	 * @return
 	 */
-	public int updatePredetermineCarportById(Long id);
+	public int updatePredetermineCarportById(Long id,Long fkCorportIssueId);
 	/**
 	 * 根据条件动态分页查询预约记录
 	 * @param map

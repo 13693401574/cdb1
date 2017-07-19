@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myitems.cdb1.landladymag.mapper.DealMapper">
+	<resultMap type="DealBean" id="dealMap">
+		<id property="id" column="id" javaType="java.lang.Long"/>
+		<result property="status" column="status" javaType="java.lang.String"/>
+		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="lazy"></association>
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
+		<association property="carBean" javaType="CarportIssueBean" column="fkCorportIssueId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
+		</association>
+	</resultMap>
+	
+	<select id="getCountDealListByItems" resultType="int">
+		select count(*) from t_deal
+	</select>
+	
+	<select id="getPredetermineCarportListByItems" resultMap="dealMap">
+		select * from t_deal
+	</select>
+	
+
+
+	<sql id="commonSql">
+		<where>
+			<if test="map.id!=null">
+				and id=#{id}
+			</if>
+		</where>
+	
+	</sql>
+</mapper>
