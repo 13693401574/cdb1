@@ -27,9 +27,9 @@ public class CarportIssueServiceImpl implements ICarportIssueService {
 		return carportIssueDaoImpl.getCarportIssueById(id);
 	}
 
-	public void deleteCarportIssueById(Long id) {
+	public void deleteCarportIssueById(CarportIssueBean c) {
 		// TODO Auto-generated method stub
-		carportIssueDaoImpl.deleteCarportIssueById(id);
+		carportIssueDaoImpl.deleteCarportIssueById(c);
 	}
 
 	public Pager getCarportIssueListByItems(Map map, Pager page) {

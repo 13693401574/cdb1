@@ -1,30 +1,48 @@
 package org.myitems.cdb1.beans;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 抢租客历史记录实体类
  * @author ljj
  *
  */
+@Entity
+@Table(name="t_deal")
 public class DealBean {
+	@Id
+	@Column(name="id")
+	@GenericGenerator(name="hb",strategy="identity")
+	@GeneratedValue(generator="hb")
 	/**id*/
 	private Long id;
+	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
+	@JoinColumn(name="fkLandladyId")
 	/**包租婆id外键*/
 	private LandladyBean landlady;
-	/**包租婆姓名*/
-	private String landladyName;
-	/**抢租客id外键*/
-	private RobTenantsBean robTenants;
-	/**抢租客姓名*/
-	private String robManName;
+//	/**抢租客id外键*/
+//	private RobTenantsBean robTenants;
+	@Column(name="status")
 	/**状态*/
 	private String status;
+	@OneToOne(cascade=CascadeType.REMOVE,fetch=FetchType.EAGER)
+	@JoinColumn(name="fkCarportIssueId")
 	/**车位发布外键*/
 	private CarportIssueBean carportIssue;
-	/**车位信息*/
-	private String carprotInfo;
-	/**租赁开始时间*/
-	private String startTime;
-	/**租赁结束时间*/
-	private String endTime;
+	@OneToOne(cascade=CascadeType.REMOVE,fetch=FetchType.EAGER,mappedBy="dealBean")
+	/**投诉的实体类*/
+	private LandladyComplainBean landladyComplainBean;
 	public DealBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,19 +54,7 @@ public class DealBean {
 		this.id = id;
 	}
 	
-	public String getLandladyName() {
-		return landladyName;
-	}
-	public void setLandladyName(String landladyName) {
-		this.landladyName = landladyName;
-	}
 	
-	public String getRobManName() {
-		return robManName;
-	}
-	public void setRobManName(String robManName) {
-		this.robManName = robManName;
-	}
 	public String getStatus() {
 		return status;
 	}
@@ -56,36 +62,18 @@ public class DealBean {
 		this.status = status;
 	}
 	
-	public String getCarprotInfo() {
-		return carprotInfo;
-	}
-	public void setCarprotInfo(String carprotInfo) {
-		this.carprotInfo = carprotInfo;
-	}
-	public String getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-	public String getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
 	public LandladyBean getLandlady() {
 		return landlady;
 	}
 	public void setLandlady(LandladyBean landlady) {
 		this.landlady = landlady;
 	}
-	public RobTenantsBean getRobTenants() {
-		return robTenants;
-	}
-	public void setRobTenants(RobTenantsBean robTenants) {
-		this.robTenants = robTenants;
-	}
+//	public RobTenantsBean getRobTenants() {
+//		return robTenants;
+//	}
+//	public void setRobTenants(RobTenantsBean robTenants) {
+//		this.robTenants = robTenants;
+//	}
 	public CarportIssueBean getCarportIssue() {
 		return carportIssue;
 	}

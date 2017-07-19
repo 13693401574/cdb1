@@ -22,13 +22,13 @@ public interface ICarportApplicationDao {
 	 * @param id
 	 * @return
 	 */
-	public int getCarportApplicationById(Long id);
+	public CarportApplicationBean getCarportApplicationById(Long id);
 	/**
 	 * 根据车位申请Id删除车位申请,删除的车位申请审核状态只能为未审核
 	 * @param id
 	 * @return
 	 */
-	public void deleteCarportApplicationById(Long id);
+	public void deleteCarportApplicationById(CarportApplicationBean c);
 	/**
 	 * 根据条件动态查询车位申请的总条数
 	 * @param map

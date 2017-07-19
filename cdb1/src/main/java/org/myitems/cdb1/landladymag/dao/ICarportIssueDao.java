@@ -27,7 +27,7 @@ public interface ICarportIssueDao {
 	 * 根据招租车位信息id删除招租信息
 	 * @param id
 	 */
-	public void deleteCarportIssueById(Long id);
+	public void deleteCarportIssueById(CarportIssueBean c);
 	/**
 	 * 根据条件动态查询包租婆发布招租车位信息的总条数
 	 * @param map

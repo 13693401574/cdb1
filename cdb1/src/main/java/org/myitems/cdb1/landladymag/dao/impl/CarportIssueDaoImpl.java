@@ -21,7 +21,7 @@ public class CarportIssueDaoImpl implements ICarportIssueDao {
 		return null;
 	}
 
-	public void deleteCarportIssueById(Long id) {
+	public void deleteCarportIssueById(CarportIssueBean c) {
 		// TODO Auto-generated method stub
 		
 	}

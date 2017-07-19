@@ -28,7 +28,7 @@ public interface ICarportIssueService {
 	 * 根据招租车位信息id删除招租信息
 	 * @param id
 	 */
-	public void deleteCarportIssueById(Long id);
+	public void deleteCarportIssueById(CarportIssueBean c);
 	/**
 	 * 根据条件动态分页查询包租婆发布的车位信息
 	 * @param id

@@ -26,14 +26,14 @@ public class CarportApplicationServiceImpl implements ICarportApplicationService
 		carportApplicationDaoImpl.saveCarportApplication(carportApplication);
 	}
 
-	public int getCarportApplicationById(Long id) {
+	public CarportApplicationBean getCarportApplicationById(Long id) {
 		// TODO Auto-generated method stub
 		return carportApplicationDaoImpl.getCarportApplicationById(id);
 	}
 
-	public void deleteCarportApplicationById(Long id) {
+	public void deleteCarportApplicationById(CarportApplicationBean c) {
 		// TODO Auto-generated method stub
-		carportApplicationDaoImpl.deleteCarportApplicationById(id);
+		carportApplicationDaoImpl.deleteCarportApplicationById(c);
 	}
 
 	public Pager getCarportApplicationListByItems(Map map, Pager page) {
@@ -47,5 +47,6 @@ public class CarportApplicationServiceImpl implements ICarportApplicationService
 		page.setDatas(carportApplicationList);
 		return page;
 	}
+
 
 }

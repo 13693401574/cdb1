@@ -1,6 +1,5 @@
 package org.myitems.cdb1.landladymag.service;
 
-import java.util.List;
 import java.util.Map;
 
 import org.myitems.cdb1.beans.CarportApplicationBean;
@@ -23,13 +22,13 @@ public interface ICarportApplicationService {
 	 * @param id
 	 * @return
 	 */
-	public int getCarportApplicationById(Long id);
+	public CarportApplicationBean getCarportApplicationById(Long id);
 	/**
 	 * 根据车位申请Id删除车位申请,删除的车位申请审核状态只能为未审核
 	 * @param id
 	 * @return
 	 */
-	public void deleteCarportApplicationById(Long id);
+	public void deleteCarportApplicationById(CarportApplicationBean c);
 	/**
 	 * 根据条件动态分页查询包租婆车位申请信息
 	 * @param id
