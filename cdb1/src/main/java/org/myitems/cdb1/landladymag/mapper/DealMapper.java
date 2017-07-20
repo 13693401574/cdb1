@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 import org.myitems.cdb1.beans.DealBean;
 
 public interface DealMapper {
@@ -19,4 +21,8 @@ public interface DealMapper {
 	 * @return
 	 */
 	public List<DealBean> getDealListByItems(@Param("map")Map map);
+	
+	
+	
+	public DealBean getDealById(@Param("id")Long id);
 }

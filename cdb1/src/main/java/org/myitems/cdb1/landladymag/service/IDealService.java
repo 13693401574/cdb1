@@ -14,7 +14,7 @@ import org.myitems.cdb1.beans.Pager;
 public interface IDealService {
 
 	/**
-	 * 新增包租婆历史记录
+	 * 新增历史记录
 	 * @param deal
 	 */
 	public void saveDeal(DealBean deal);

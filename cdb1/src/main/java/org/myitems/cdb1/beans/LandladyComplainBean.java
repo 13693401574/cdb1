@@ -1,5 +1,7 @@
 package org.myitems.cdb1.beans;
 
+import java.util.Date;
+
 import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,12 +36,12 @@ public class LandladyComplainBean {
 	@Column(name="beComplaint",length=20)
 	/**被投诉人*/
 	private String beComplaint;
-	@Column(name="complainantDate",length=20)
+	@Column(name="complainantDate")
 	/**投诉时间*/
-	private String complainantDate;
+	private Date complainantDate;
 	@Column(name="status",length=20)
 	/**投诉状态*/
-	private String status;
+	private String status="待处理";
 	@Column(name="reasons",length=120)
 	/**投诉理由*/
 	private String reasons;
@@ -73,10 +75,10 @@ public class LandladyComplainBean {
 	public void setBeComplaint(String beComplaint) {
 		this.beComplaint = beComplaint;
 	}
-	public String getComplainantDate() {
+	public Date getComplainantDate() {
 		return complainantDate;
 	}
-	public void setComplainantDate(String complainantDate) {
+	public void setComplainantDate(Date complainantDate) {
 		this.complainantDate = complainantDate;
 	}
 	public String getStatus() {
@@ -96,6 +98,18 @@ public class LandladyComplainBean {
 	}
 	public void setDealBean(DealBean dealBean) {
 		this.dealBean = dealBean;
+	}
+	public LandladyBean getLandlady() {
+		return landlady;
+	}
+	public void setLandlady(LandladyBean landlady) {
+		this.landlady = landlady;
+	}
+	@Override
+	public String toString() {
+		return "LandladyComplainBean [id=" + id + ", complainant=" + complainant + ", beComplaint=" + beComplaint
+				+ ", complainantDate=" + complainantDate + ", status=" + status + ", reasons=" + reasons + ", dealBean="
+				+ dealBean + ", landlady=" + landlady + "]";
 	}
 	
 }

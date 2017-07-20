@@ -2,6 +2,7 @@ package org.cdb1.test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.myitems.cdb1.beans.Pager;
 import org.myitems.cdb1.landladymag.service.ICarportApplicationService;
 import org.myitems.cdb1.landladymag.service.ICarportIssueService;
 import org.myitems.cdb1.landladymag.service.ILandladyService;
+import org.myitems.cdb1.tools.DateChange;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -40,12 +42,13 @@ public class TestCarportIssue {
 		p.setPage(1);
 		p.setRows(3);
 		p=carportApplicationServiceImpl.getCarportApplicationListByItems(map, p);
+		
 		LandladyBean land=landladyServiceImpl.getLandladyById(1l);
 		
 		CarportIssueBean c=new CarportIssueBean();
-		c.setStartTime("2017-07-01");
+		c.setStartTime(DateChange.getDate("2016-06-01"));
 		c.setAppBean((CarportApplicationBean)p.getDatas().get(0));
-		c.setEndTime("2017-06-01");
+		c.setEndTime(DateChange.getDate("2017-06-01"));
 		c.setLandlady(land);
 		c.setPrice("500元");
 		
@@ -63,10 +66,10 @@ public class TestCarportIssue {
 		CarportIssueBean c=carportIssueServiceImpl.getCarportIssueById(2l);
 		carportIssueServiceImpl.deleteCarportIssueById(c);
 	}
-	@Ignore
+	@Test
 	public void testGetCarportIssueListByItems(){
 		Map map=new HashMap();
-		map.put("fkLandladyId", 3l);
+		map.put("fkLandladyId", 1l);
 		Pager p=new Pager();
 		p.setPage(1);
 		p.setRows(3);

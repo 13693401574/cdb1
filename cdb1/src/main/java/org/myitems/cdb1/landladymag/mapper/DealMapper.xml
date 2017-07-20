@@ -5,26 +5,35 @@
 	<resultMap type="DealBean" id="dealMap">
 		<id property="id" column="id" javaType="java.lang.Long"/>
 		<result property="status" column="status" javaType="java.lang.String"/>
-		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="lazy"></association>
+		<association property="robTenants" javaType="RobTenantsBean" column="fkRobManId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById"></association>
 		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
-		<association property="carBean" javaType="CarportIssueBean" column="fkCorportIssueId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
+		<association property="carportIssue" javaType="CarportIssueBean" column="fkCarportIssueId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
 		</association>
 	</resultMap>
+	<select id="getDealById" resultMap="dealMap">
+		select * from t_deal where id=#{id}
+	</select>
+	
 	
 	<select id="getCountDealListByItems" resultType="int">
 		select count(*) from t_deal
+		<include refid="commonSql"></include>
 	</select>
 	
-	<select id="getPredetermineCarportListByItems" resultMap="dealMap">
+	<select id="getDealListByItems" resultMap="dealMap">
 		select * from t_deal
+		<include refid="commonSql"></include>
 	</select>
 	
 
 
 	<sql id="commonSql">
 		<where>
-			<if test="map.id!=null">
-				and id=#{id}
+			<if test="map.fkRobtenantId!=null">
+				and fkRobtenantId=#{map.fkRobtenantId}
+			</if>
+			<if test="map.fkLandladyId != null">
+				and fkLandladyId=#{map.fkLandladyId}
 			</if>
 		</where>
 	

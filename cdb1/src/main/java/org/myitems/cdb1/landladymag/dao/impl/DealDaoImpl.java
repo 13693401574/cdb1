@@ -36,6 +36,7 @@ public class DealDaoImpl implements IDealDao {
 
 	public List<DealBean> getDealListByItems(Map map) {
 		// TODO Auto-generated method stub
+		System.out.println(map.get("fkLandladyId"));
 		return dm.getDealListByItems(map);
 	}
 

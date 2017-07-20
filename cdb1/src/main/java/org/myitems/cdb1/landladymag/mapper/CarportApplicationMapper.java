@@ -24,12 +24,12 @@ public interface CarportApplicationMapper {
 	 * @param map
 	 * @return
 	 */
-	@Select("select count(id) from t_carportApplication where #{map.id} ")
+	
 	public int getCountCarportApplicationByItems(@Param("map")Map map);
 	/**
 	 * 根据条件动态查询车位申请
 	 * @param map
 	 * @return
 	 */
-	public List<CarportApplicationBean> getCarportApplicationListByItems(Map map);
+	public List<CarportApplicationBean> getCarportApplicationListByItems(@Param("map")Map map);
 }

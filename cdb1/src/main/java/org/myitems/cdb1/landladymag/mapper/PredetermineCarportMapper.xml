@@ -6,7 +6,7 @@
 		<id property="id" column="id" javaType="java.lang.Long"/>
 		<result property="message" column="message" javaType="java.lang.String"/>
 		<result property="status" column="status" javaType="java.lang.String"/>
-		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="lazy"></association>
+		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById"></association>
 		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
 		<association property="carBean" javaType="CarportIssueBean" column="fkCorportIssueId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
 		</association>
@@ -24,8 +24,8 @@
 
 	<sql id="commonSql">
 		<where>
-			<if test="map.id!=null">
-				and id=#{id}
+			<if test="map.fkLandladyId!=null">
+				and fkLandladyId=#{fkLandladyId}
 			</if>
 		</where>
 	

@@ -99,6 +99,18 @@ public class CarportApplicationBean {
 	public void setLandlady(LandladyBean landlady) {
 		this.landlady = landlady;
 	}
+	public List<CarportIssueBean> getCarportIssueList() {
+		return carportIssueList;
+	}
+	public void setCarportIssueList(List<CarportIssueBean> carportIssueList) {
+		this.carportIssueList = carportIssueList;
+	}
+	@Override
+	public String toString() {
+		return "CarportApplicationBean [id=" + id + ", carportEquityCode=" + carportEquityCode + ", carportAddress="
+				+ carportAddress + ", carportAddressCode=" + carportAddressCode + ", equityCopies=" + equityCopies
+				+ ", status=" + status + "]";
+	}
 	
 	
 	

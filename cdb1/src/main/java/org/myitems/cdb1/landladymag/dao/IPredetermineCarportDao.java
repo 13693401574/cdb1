@@ -14,6 +14,12 @@ import org.myitems.cdb1.beans.PredetermineCarportBean;
 public interface IPredetermineCarportDao {
 
 	/**
+	 * 添加预约信息
+	 * @param predetermineCarport
+	 */
+	public void savePredetermineCarport(PredetermineCarportBean predetermineCarport);
+	
+	/**
 	 * 根据预约信息修改预约信息的状态
 	 * @param id
 	 * @return

@@ -39,7 +39,6 @@ public class CarportApplicationServiceImpl implements ICarportApplicationService
 	public Pager getCarportApplicationListByItems(Map map, Pager page) {
 		
 		// TODO Auto-generated method stub
-		
 		int tolRows=carportApplicationDaoImpl.getCountCarportApplicationByItems(map);
 		List<CarportApplicationBean> carportApplicationList=carportApplicationDaoImpl.getCarportApplicationListByItems(map);
 		

@@ -33,6 +33,12 @@ public class PredetermineCarportServiceImpl implements IPredetermineCarportServi
 		page.setDatas(datas);
 		return page;
 	}
+
+	@Override
+	public void savePredetermineCarport(PredetermineCarportBean predetermineCarport) {
+		// TODO Auto-generated method stub
+		predetermineCarportDaoImpl.savePredetermineCarport(predetermineCarport);
+	}
 	
 
 }

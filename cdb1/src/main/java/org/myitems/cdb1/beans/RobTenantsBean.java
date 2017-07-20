@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -58,8 +57,16 @@ public class RobTenantsBean {
 	@OneToMany(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY,mappedBy="robBean")
 	/**预约记录集合*/
 	private List<PredetermineCarportBean> predetermineCarportList;
+	@OneToMany(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY,mappedBy="robTenants")
 	/**抢租客对应的历史记录实体类集合*/
 	private List<DealBean> dealList;
+	@Override
+	public String toString() {
+		return "RobTenantsBean [id=" + id + ", userName=" + userName + ", pwd=" + pwd + ", realName=" + realName
+				+ ", address=" + address + ", phone=" + phone + ", idCard=" + idCard + ", jobDescribe=" + jobDescribe
+				+ ", email=" + email + ", credibility=" + credibility + "]";
+	}
+	@OneToMany(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY,mappedBy="robBean")
 	/**抢租客对应的投诉类集合*/
 	private List<RobTenantsComplainBean> robTenantsComplainList;
 	public RobTenantsBean() {
@@ -125,6 +132,24 @@ public class RobTenantsBean {
 	}
 	public void setCredibility(String credibility) {
 		this.credibility = credibility;
+	}
+	public List<PredetermineCarportBean> getPredetermineCarportList() {
+		return predetermineCarportList;
+	}
+	public void setPredetermineCarportList(List<PredetermineCarportBean> predetermineCarportList) {
+		this.predetermineCarportList = predetermineCarportList;
+	}
+	public List<DealBean> getDealList() {
+		return dealList;
+	}
+	public void setDealList(List<DealBean> dealList) {
+		this.dealList = dealList;
+	}
+	public List<RobTenantsComplainBean> getRobTenantsComplainList() {
+		return robTenantsComplainList;
+	}
+	public void setRobTenantsComplainList(List<RobTenantsComplainBean> robTenantsComplainList) {
+		this.robTenantsComplainList = robTenantsComplainList;
 	}
 	
 	

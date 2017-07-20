@@ -70,17 +70,22 @@ public class DealBean {
 	public void setLandlady(LandladyBean landlady) {
 		this.landlady = landlady;
 	}
-//	public RobTenantsBean getRobTenants() {
-//		return robTenants;
-//	}
-//	public void setRobTenants(RobTenantsBean robTenants) {
-//		this.robTenants = robTenants;
-//	}
+	public RobTenantsBean getRobTenants() {
+		return robTenants;
+	}
+	public void setRobTenants(RobTenantsBean robTenants) {
+		this.robTenants = robTenants;
+	}
 	public CarportIssueBean getCarportIssue() {
 		return carportIssue;
 	}
 	public void setCarportIssue(CarportIssueBean carportIssue) {
 		this.carportIssue = carportIssue;
+	}
+	@Override
+	public String toString() {
+		return "DealBean [id=" + id + ", landlady=" + landlady + ", robTenants=" + robTenants + ", status=" + status
+				+ ", carportIssue=" + carportIssue + ", landladyComplainBean=" + landladyComplainBean + "]";
 	}
 	
 	

@@ -35,10 +35,7 @@ public class LandladyDao implements ILandladyDao {
 
 	public void updateLandlady(LandladyBean landlady) {
 		// TODO Auto-generated method stub
-//		sf.getCurrentSession().update(landlady);
-	
-
-		sf.openSession().update(landlady);
+		sf.getCurrentSession().update(landlady);
 		
 	}
 

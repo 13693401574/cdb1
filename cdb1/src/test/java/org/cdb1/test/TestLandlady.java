@@ -20,8 +20,8 @@ public class TestLandlady {
 	@Ignore
 	public void testSaveLandlady(){
 		LandladyBean land=new LandladyBean();
-		land.setUserName("tr");
-		land.setRealName("asdf");
+		land.setUserName("zh");
+		land.setRealName("邹辉");
 		land.setPwd("123456");
 		land.setPhone("12345678901");
 		land.setJobDescribe("自由职业者");

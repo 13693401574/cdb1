@@ -1,11 +1,17 @@
 package org.myitems.cdb1.beans;
 
-import java.util.Date;
+import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -36,13 +42,26 @@ public class RobTenantsComplainBean {
 	@Column(name="status")
 	/**投诉状态*/
 	private String status;
+	@Column(name="reasons",length=120)
 	/**投诉理由*/
 	private String reasons;
+	@OneToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
+	@JoinColumn(name="fkDealId")
 	/**历史记录实体类*/
 	private DealBean dealBean;
+	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
+	@JoinColumn(name="fkRobManId")
+	/**抢租客实体类*/
+	private RobTenantsBean robBean;
 	public RobTenantsComplainBean() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public RobTenantsBean getRobTenantsBean() {
+		return robBean;
+	}
+	public void setRobTenantsBean(RobTenantsBean robBean) {
+		this.robBean = robBean;
 	}
 	public Long getId() {
 		return id;

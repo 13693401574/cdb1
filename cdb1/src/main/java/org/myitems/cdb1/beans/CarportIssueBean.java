@@ -1,5 +1,6 @@
 package org.myitems.cdb1.beans;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,10 +34,10 @@ public class CarportIssueBean {
 	private Long id;
 	@Column(name="startTime",length=20)
 	/**租赁开始时间*/
-	private String startTime;
+	private Date startTime;
 	@Column(name="endTime",length=20)
 	/**租赁结束时间*/
-	private String endTime;
+	private Date endTime;
 	@Column(name="price",length=20)
 	/**租赁价格*/
 	private String price;
@@ -67,16 +68,16 @@ public class CarportIssueBean {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-	public String getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(String endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 	public String getPrice() {
@@ -106,8 +107,9 @@ public class CarportIssueBean {
 	@Override
 	public String toString() {
 		return "CarportIssueBean [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", price=" + price
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", appBean=" + appBean + "]";
 	}
+	
 	
 	
 	

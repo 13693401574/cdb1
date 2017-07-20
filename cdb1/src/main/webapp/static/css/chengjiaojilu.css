@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding:0;
+}
+div{
+    /* outline: 1px red solid;*/
+}
+.table{
+    width: 800px;
+    text-align: center;
+}
+h2{
+    color: #b52b27;
+    background-color: #A9FACD;
+    letter-spacing: 10px;
+}
+.btn{
+    margin-left: 200px;
+    display: inline-block;
+    border-radius: 4px;
+    float: left;
+}
+.btn a{
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 10px 30px;
+    background-color: #fff3f3;
+    font-size: 20px;
+    color:brown;
+    font-weight: 900;
+}
+.btn a:hover{
+    background-color: #99cdff;
+}
+.time{
+    margin-left: -20px;
+    display: inline-block;
+    /* float: right;*/
+}
+#celect{
+    padding: 10px 20px;
+    background-color: #fff3f3;
+    border-radius: 6px;
+}
+#celect:hover{
+    background-color: #99cdff;
+}
