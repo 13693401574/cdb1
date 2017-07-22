@@ -2,23 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.myitems.cdb1.landladymag.mapper.CarportApplicationMapper">
-	<!-- <resultMap type="CarportApplicationBean" id="carportApplicationMap">
+	 <resultMap type="CarportApplicationBean" id="carportApplicationMap">
 		<id property="id" column="id" javaType="java.lang.Long"/>
 		<result property="carportEquityCode" column="carportEquityCode" javaType="java.lang.String"/>
 		<result property="carportAddress" column="carportAddress" javaType="java.lang.String"/>
 		<result property="carportAddressCode" column="carportAddressCode" javaType="java.lang.String"/>
 		<result property="status" column="status" javaType="java.lang.String"/>
-		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy"></association>
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
 	
-	</resultMap> -->
-
+	</resultMap> 
+	<select id="getCarportApplicationById" resultMap="carportApplicationMap">
+	
+		select * from t_carportApplication where id=#{id}
+	</select>
 
 	<select id="getCountCarportApplicationByItems" resultType="int">
 		select count(*) from t_carportApplication
 		<include refid="commonSql"></include>
 	
 	</select>
-	<select id="getCarportApplicationListByItems" resultType="CarportApplicationBean">
+	<select id="getCarportApplicationListByItems" resultMap="carportApplicationMap">
 		select * from t_carportApplication
 		<include refid="commonSql"></include>
 	</select>
@@ -30,6 +33,12 @@
 			</if>
 			<if test="map.status != null">
 				and status='审核通过'
+			</if>
+			<if test="map.carportAddress !=null ">
+				and carportAddress = #{map.carportAddress}
+			</if>
+			<if test="map.carportAddressCode !=null">
+				and carportAddressCode=#{map.carportAddressCode}
 			</if>
 		</where>
 		

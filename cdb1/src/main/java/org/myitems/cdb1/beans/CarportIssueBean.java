@@ -43,7 +43,7 @@ public class CarportIssueBean {
 	private String price;
 	@Column(name="status",length=20)
 	/**状态*/
-	private String status;
+	private String status="未出租";
 	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)
 	@JoinColumn(name="fkCarportApplicationId")
 	/**车位申请表实体Bean*/

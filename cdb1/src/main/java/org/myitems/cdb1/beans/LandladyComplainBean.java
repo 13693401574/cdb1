@@ -1,6 +1,6 @@
 package org.myitems.cdb1.beans;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.annotation.Generated;
 import javax.persistence.CascadeType;

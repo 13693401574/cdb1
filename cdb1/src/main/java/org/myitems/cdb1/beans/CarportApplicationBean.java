@@ -45,7 +45,7 @@ public class CarportApplicationBean {
 	private String equityCopies;
 	@Column(name="status",length=20)
 	/**申请状态*/
-	private String status;
+	private String status="待审核";
 	/**每条申请的发布信息*/
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="appBean")
 	private List<CarportIssueBean> carportIssueList;
@@ -109,7 +109,7 @@ public class CarportApplicationBean {
 	public String toString() {
 		return "CarportApplicationBean [id=" + id + ", carportEquityCode=" + carportEquityCode + ", carportAddress="
 				+ carportAddress + ", carportAddressCode=" + carportAddressCode + ", equityCopies=" + equityCopies
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", landlady=" + landlady + "]";
 	}
 	
 	

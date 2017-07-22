@@ -16,7 +16,7 @@
 	<select id="getCountCarportIssueListByItems" resultType="int">
 		select count(*) from t_carportIssue
 		<include refid="commonSql"></include>
-	
+		
 	</select>
 	<select id="getCarportIssueListByItems" resultMap="carportIssueMap">
 		select * from t_carportIssue
@@ -28,7 +28,20 @@
 			<if test="map.fkLandladyId != null">
 				and fkLandladyId=#{map.fkLandladyId}
 			</if>
+			<if test="map.startTime !=null">
+				<![CDATA[
+					and startTime >=#{map.startTime}
+				]]>
+				
+			</if>
+			<if test="map.endTime !=null">
+				<![CDATA[
+					and endTime <=#{map.endTime}
+				]]>
+				
+			</if>
 		</where>
+		
 	</sql>
 	
 </mapper>

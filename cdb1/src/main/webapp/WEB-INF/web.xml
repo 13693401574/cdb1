@@ -6,10 +6,10 @@
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	
 	<!-- 动态的设置项目运行路径，注意：每个项目param-value不能重复 -->
-	<context-param>
+	<!-- <context-param>
 		<param-name>webAppRootKey</param-name>
 		<param-value>cdb.root</param-value>
-	</context-param>
+	</context-param> -->
 	
 	<!-- 启动Spring大容器，将Spring容器内的内容纳入到WEB容器中 -->
 	<context-param>
@@ -19,6 +19,8 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	
 	
 	<!-- 配置log4j日志框架 -->
 	<!-- <context-param>

@@ -45,4 +45,10 @@ public class CarportApplicationDaoImpl implements ICarportApplicationDao{
 		return cam.getCarportApplicationListByItems(map);
 	}
 
+	@Override
+	public List<String> getCarportAddressNameByFkLandladyId(Long fkLandladyId) {
+		// TODO Auto-generated method stub
+		return cam.getCarportAddressNameByFkLandladyId(fkLandladyId);
+	}
+
 }

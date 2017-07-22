@@ -47,5 +47,11 @@ public class CarportApplicationServiceImpl implements ICarportApplicationService
 		return page;
 	}
 
+	@Override
+	public List<String> getCarportAddressNameByFkLandladyId(Long fkLandladyId) {
+		// TODO Auto-generated method stub
+		return carportApplicationDaoImpl.getCarportAddressNameByFkLandladyId(fkLandladyId);
+	}
+
 
 }

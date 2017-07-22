@@ -42,12 +42,12 @@ public class TestCarportApplication {
 		
 		System.out.println(c);
 	}
-	@Ignore
+	@Test
 	public void testDeleteCarportApplicationById(){
 		CarportApplicationBean c=carportApplicationServiceImpl.getCarportApplicationById(2l);
 		carportApplicationServiceImpl.deleteCarportApplicationById(c);
 	}
-	@Test
+	@Ignore
 	public void testGetCarportApplicationListByItems(){
 		Map map=new HashMap(); 
 		map.put("fkLandladyId", 1l);
@@ -57,5 +57,6 @@ public class TestCarportApplication {
 		p.setRows(2);
 		p=carportApplicationServiceImpl.getCarportApplicationListByItems(map, p);
 		System.out.println(p);
+//		System.out.println(carportApplicationServiceImpl.getCarportAddressNameByFkLandladyId(1l));
 	}
 }

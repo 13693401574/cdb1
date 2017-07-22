@@ -32,7 +32,7 @@ public class TestCarportIssue {
 	private ICarportIssueService carportIssueServiceImpl;
 	@Resource
 	private ICarportApplicationService carportApplicationServiceImpl;
-	@Ignore
+	@Test
 	public void testSaveCarportIssue(){
 		
 		Map map=new HashMap();
@@ -53,8 +53,9 @@ public class TestCarportIssue {
 		c.setPrice("500元");
 		
 		c.setStatus("未出租");
+		for(int i=0;i<10;i++){
 		carportIssueServiceImpl.saveCarportIssue(c);
-	
+		}
 	}
 	@Ignore
 	public void testGetCarportIssueById(){
@@ -66,7 +67,7 @@ public class TestCarportIssue {
 		CarportIssueBean c=carportIssueServiceImpl.getCarportIssueById(2l);
 		carportIssueServiceImpl.deleteCarportIssueById(c);
 	}
-	@Test
+	@Ignore
 	public void testGetCarportIssueListByItems(){
 		Map map=new HashMap();
 		map.put("fkLandladyId", 1l);

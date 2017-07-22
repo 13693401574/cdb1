@@ -41,4 +41,11 @@ public interface ICarportApplicationDao {
 	 * @return
 	 */
 	public List<CarportApplicationBean> getCarportApplicationListByItems(Map map);
+	
+	/**
+	 * 根据包租婆的Id查询车位所在小区
+	 * @param fkLandladyId
+	 * @return
+	 */
+	public List<String> getCarportAddressNameByFkLandladyId(Long fkLandladyId);
 }

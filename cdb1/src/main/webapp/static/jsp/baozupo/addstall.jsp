@@ -13,40 +13,71 @@
 
     <link rel="stylesheet" type="text/css" href="static/easyUI/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="static/easyUI/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="static/easyUI/demo/demo.css">
 
     <script type="text/javascript" src="static/easyUI/jquery.min.js"></script>
     <script type="text/javascript" src="static/easyUI/jquery.easyui.min.js"></script>
-
-
+	<script type="text/javascript" src="static/js/jquery.json-2.4.js"></script>
+	<script type="text/javascript" src="static/easyUI/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="static/js/landlady/addstall.js"></script>
 </head>
 <body>
-<div align="center">
+<div align="center" class="id" id="1">
+	<input id="id" type="hidden" value="1">
     <h3>添加车位信息</h3>
 </div>
 <div align="center" style="margin-top: 60px">
-    <div style="margin-top: 50px">
-        <label >车位产权证编号</label>
-        <input type="text" style="margin-left: 30px"/>
-    </div>
-    <div style="margin-top: 50px">
-        <label>车位所在小区</label>
-        <input type="text" style="margin-left: 30px"/>
-    </div>
-    <div style="margin-top: 50px">
-        <label>小区车位编号</label>
-        <input type="text" style="margin-left: 30px"/>
-    </div>
-    <div style="margin-top: 50px">
-        <label>车位产权复印件</label>
-        <input type="button" value="选择文件" style="margin-left: 30px"/>
-    </div>
-
-    <br/><br/><br/><br/><br/><br/><br/>
-
-    <a id="btn1" href="LandladyMain.jsp" target="show" class="easyui-linkbutton" style="width: 150px">确认</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <a id="btn2" href="LandladyMain.jsp" target="show" class="easyui-linkbutton" style="width: 150px">取消</a>
+	<form id="form" method="post"  enctype="multipart/form-data" onsubmit="return changeurl()">
+	    <div style="margin-top: 50px">
+	        <label>车位产权证编号</label>
+	        <input id="carportEquityCode" name="carportEquityCode" type="text" style="margin-left: 30px"/>
+	    </div>
+	    <div style="margin-top: 50px">
+	        <label>车位所在小区</label>
+	        <input id="carportAddress" name="carportAddress" type="text" style="margin-left: 30px"/>
+	    </div>
+	    <div style="margin-top: 50px">
+	        <label>小区车位编号</label>
+	        <input id="carportAddressCode" name="carportAddressCode" type="text" style="margin-left: 30px"/>
+	    </div>
+	    <div style="margin-top: 50px">
+	        <label>车位产权复印件</label>
+	        <input id="file" type="file" name="fileName" onchange="changePhoto(this)" style="margin-left: 30px"/>
+	   		
+	    </div>
+		<div style="margin-top:50px;outline: 1px,red,solid;" class="showPhoto" id="show">
+			
+		</div>
+	    <br/><br/><br/><br/><br/><br/><br/>
+	
+	    <input id="btn1" type="submit" target="show" class="easyui-linkbutton" value="确认" style="width: 150px;height:30px ">
+	    &nbsp;&nbsp;&nbsp;&nbsp;
+	    <a id="btn2" href="static/jsp/baozupo/LandladyMain.jsp" target="show" class="easyui-linkbutton" style="width: 150px;height:30px">取消</a>
+	</form>
 </div>
 
 </body>
+<script type="text/javascript">
+	var equityCopies = $("#file");
+	var showDiv = $("#show");
+	function changePhoto(imgObj){
+    	//alert(imgObj.value);
+    	showDiv.html("");
+    	var img = null;
+    	if(document.all){
+    		img = document.createElement(img);
+    		img.src=imgObj.value;
+    		//alert(img.src);
+    	}else{
+    		var fileList = imgObj.files;
+    		//console.log(fileList);
+    		var file = fileList[0];
+    		img = new Image();
+    		img.src=window.URL.createObjectURL(file);
+    	}
+    	showDiv.append(img);
+    	img.style.width="80px";
+    	img.style.height="100px";
+    }  
+</script>
 </html>

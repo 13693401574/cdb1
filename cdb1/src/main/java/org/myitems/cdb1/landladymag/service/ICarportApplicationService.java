@@ -1,5 +1,6 @@
 package org.myitems.cdb1.landladymag.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.myitems.cdb1.beans.CarportApplicationBean;
@@ -37,4 +38,10 @@ public interface ICarportApplicationService {
 	 * @return
 	 */
 	public Pager getCarportApplicationListByItems(Map map,Pager page);
+	/**
+	 * 根据包租婆的Id查询车位所在小区
+	 * @param fkLandladyId
+	 * @return
+	 */
+	public List<String> getCarportAddressNameByFkLandladyId(Long fkLandladyId);
 }
