@@ -2,6 +2,10 @@ package org.myitems.cdb1.landladymag.controller;
 
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,15 +13,26 @@ import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.bridge.Message;
 import org.myitems.cdb1.beans.CarportApplicationBean;
 import org.myitems.cdb1.beans.CarportIssueBean;
+import org.myitems.cdb1.beans.DealBean;
 import org.myitems.cdb1.beans.LandladyBean;
+import org.myitems.cdb1.beans.LandladyComplainBean;
+import org.myitems.cdb1.beans.Messager;
 import org.myitems.cdb1.beans.Pager;
+import org.myitems.cdb1.beans.PredetermineCarportBean;
 import org.myitems.cdb1.beans.PublicMap;
+import org.myitems.cdb1.beans.RobTenantsBean;
 import org.myitems.cdb1.landladymag.service.ICarportApplicationService;
 import org.myitems.cdb1.landladymag.service.ICarportIssueService;
+import org.myitems.cdb1.landladymag.service.IDealService;
+import org.myitems.cdb1.landladymag.service.ILandladyComplainService;
 import org.myitems.cdb1.landladymag.service.ILandladyService;
+import org.myitems.cdb1.landladymag.service.IPredetermineCarportService;
+import org.myitems.cdb1.landladymag.service.IRobTenantsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +52,14 @@ public class LandladyController {
 	private ICarportApplicationService carportApplicationServiceImpl;
 	@Resource
 	private ILandladyService landladyServiceImpl;
+	@Resource
+	private IPredetermineCarportService predetermineCarportServiceImpl;
+	@Resource
+	private IDealService dealServiceImpl;
+	@Resource
+	private IRobTenantsService robTenantsServiceImpl;
+	@Resource
+	private ILandladyComplainService landladyComplainServiceImpl;
 	
 	@RequestMapping(value="/id",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	public @ResponseBody List<CarportIssueBean> getCarportIssue(@RequestBody PublicMap publicMap){
@@ -73,6 +96,20 @@ public class LandladyController {
 		carportApplicationServiceImpl.saveCarportApplication(c);
 		return "static/jsp/baozupo/LandladyMain";
 	}
+	@RequestMapping(value="/carportEquityCode",method=RequestMethod.GET,produces="application/json;charset=utf-8")
+	public @ResponseBody StringBuilder CarportApplicationIsexist(@PathVariable String carportEquityCode){
+		Pager p=new Pager();
+		p.setPage(1);
+		p.setRows(1);
+		
+		Map map=new HashMap();
+		map.put("carportEquityCode", carportEquityCode);
+		carportApplicationServiceImpl.getCarportApplicationListByItems(map, p);
+		List<CarportApplicationBean> list=(List<CarportApplicationBean>) p.getDatas();
+		System.out.println(list);
+		return null;
+	}
+	
 	@RequestMapping(value="/{fkLandladyId}",method=RequestMethod.GET,produces="application/json;charset=utf-8")
 	public @ResponseBody List<String> getCarportAddress(@PathVariable("fkLandladyId") Long fkLandladyId){
 		
@@ -102,5 +139,70 @@ public class LandladyController {
 		cib.setLandlady(l);
 		carportIssueServiceImpl.saveCarportIssue(cib);
 		return "static/jsp/baozupo/LandladyMain";
+	}
+	/**
+	 * 包租婆查看预约信息
+	 * @return
+	 */
+	@RequestMapping(value="/findReservation",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	public @ResponseBody List<PredetermineCarportBean> showPredetermineCarport(@RequestBody PublicMap publicMap){
+		
+		Pager p=new Pager();
+		p.setPage(Integer.parseInt(publicMap.getPage()));
+		p.setRows(Integer.parseInt(publicMap.getRows()));
+		Map map=publicMap.getMap();
+		predetermineCarportServiceImpl.getPredetermineCarportListByItems(map, p);
+		List<PredetermineCarportBean> list=(List<PredetermineCarportBean>) p.getDatas();
+		
+		return list;
+	}
+	@RequestMapping(value="/fkCarportApplicationId/{id}",method=RequestMethod.PUT,produces="application/json;charset=utf-8")
+	public @ResponseBody StringBuilder checkPredetermineCarportById(@RequestBody PublicMap publicMap,@PathVariable Long id){
+		Long fkCorportIssueId=Long.parseLong(publicMap.getFkCorportIssueId());
+		predetermineCarportServiceImpl.updatePredetermineCarportById(id, fkCorportIssueId);
+		
+		StringBuilder s=new StringBuilder();
+		s.append("static/jsp/baozupo/LandladyMain"); 
+		return s;
+	}
+	
+	@RequestMapping(value="/deal/{fkLandladyId}",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	public @ResponseBody List<DealBean> getDeal(@RequestBody PublicMap publicMap,@PathVariable("fkLandladyId") String fkLandladyId){
+		
+		Pager p=new Pager();
+		p.setPage(Integer.parseInt(publicMap.getPage()));
+		p.setRows(Integer.parseInt(publicMap.getRows()));
+		Map map=publicMap.getMap();
+		dealServiceImpl.getDealListByItems(map, p);
+		List<DealBean> list=(List<DealBean>) p.getDatas();
+		return list;
+	}
+	
+	@RequestMapping(value="/saveLandladyComplain/{id}",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	public @ResponseBody Messager saveLandladyComplain(@RequestBody LandladyComplainBean lcb,@PathVariable("id") Long dealId){
+		Messager msg=new Messager(true,"投诉成功");
+		
+		Date nowDate = null;
+		try {
+			Date now = new Date(); 
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
+			String nowTime = dateFormat.format(now); 
+			nowDate = dateFormat.parse(nowTime);
+			DealBean deal=dealServiceImpl.getDealById(dealId);
+			deal.setStatus("1");
+			lcb.setBeComplaint(deal.getRobTenants().getUserName());
+			lcb.setComplainant(deal.getLandlady().getUserName());
+			lcb.setDealBean(deal);
+			lcb.setLandlady(deal.getLandlady());
+			lcb.setComplainantDate(nowDate);
+			landladyComplainServiceImpl.saveLandladyComplain(lcb);
+		} catch (Exception e) {
+			msg=new Messager(false,"投诉失败");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return msg;
 	}
 }

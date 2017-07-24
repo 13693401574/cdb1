@@ -13,6 +13,8 @@
 		<association property="appBean" javaType="CarportApplicationBean" column="fkCarportApplicationId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.CarportApplicationMapper.getCarportApplicationById"></association>
 		
 	</resultMap>
+	
+	
 	<select id="getCountCarportIssueListByItems" resultType="int">
 		select count(*) from t_carportIssue
 		<include refid="commonSql"></include>

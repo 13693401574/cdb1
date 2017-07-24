@@ -15,6 +15,28 @@ public class PublicMap {
 	private String carportAddress;
 	private String carportAddressCode;
 	private String fkLandladyId;
+	private String fkCorportIssueId;
+	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+		map.put("status", status);
+	}
+
+	public String getFkCorportIssueId() {
+		return fkCorportIssueId;
+	}
+
+	public void setFkCorportIssueId(String fkCorportIssueId) {
+		this.fkCorportIssueId = fkCorportIssueId;
+		
+		map.put("fkCorportIssueId", fkCorportIssueId);
+	}
+
 	public String getCarportAddressCode() {
 		return carportAddressCode;
 	}

@@ -1,5 +1,7 @@
 package org.myitems.cdb1.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +21,11 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name="t_predetermineCarport")
-public class PredetermineCarportBean {
+public class PredetermineCarportBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2973071424705177131L;
 	@Id
 	@Column(name="id")
 	@GenericGenerator(name="hb",strategy="identity")

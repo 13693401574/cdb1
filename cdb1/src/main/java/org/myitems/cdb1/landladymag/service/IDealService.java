@@ -25,4 +25,15 @@ public interface IDealService {
 	 * @return
 	 */
 	public Pager getDealListByItems(Map map,Pager page);
+	/**
+	 * 根据历史记录Id查询历史记录信息并显示关联表信息
+	 * @param id
+	 * @return
+	 */
+	public DealBean getDealById(Long id);
+	/**
+	 * 修改历史记录的状态
+	 * @param deal
+	 */
+	public void updateDealBean(DealBean deal);
 }

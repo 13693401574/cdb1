@@ -13,10 +13,9 @@
     <link rel="stylesheet" type="text/css" href="static/css/managementPanle.css">
 
     <link rel="stylesheet" type="text/css" href="static/easyUI/themes/default/easyui.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../../easyUI/themes/icon.css"> -->
 
     <link rel="stylesheet" type="text/css" href="static/easyUI/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="static/easyUI/themes/metro/icon.css">
+    <link rel="stylesheet" type="text/css" href="static/easyUI/themes/icon.css">
 	
     <script type="text/javascript" src="static/easyUI/jquery.min.js"></script>
     <script type="text/javascript" src="static/easyUI/jquery.easyui.min.js"></script>

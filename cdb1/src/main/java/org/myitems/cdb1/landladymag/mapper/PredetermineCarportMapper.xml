@@ -6,18 +6,20 @@
 		<id property="id" column="id" javaType="java.lang.Long"/>
 		<result property="message" column="message" javaType="java.lang.String"/>
 		<result property="status" column="status" javaType="java.lang.String"/>
-		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById"></association>
-		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
-		<association property="carBean" javaType="CarportIssueBean" column="fkCorportIssueId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
+		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById"></association>
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
+		<association property="carBean" javaType="CarportIssueBean" column="fkCorportIssueId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
 		</association>
 	</resultMap>
 	
 	<select id="getCountPredetermineCarportListByItems" resultType="int">
 		select count(*) from t_predetermineCarport
+		<include refid="commonSql"></include>
 	</select>
 	
 	<select id="getPredetermineCarportListByItems" resultMap="predetermineCarportMap">
 		select * from t_predetermineCarport
+		<include refid="commonSql"></include>
 	</select>
 	
 
@@ -25,8 +27,9 @@
 	<sql id="commonSql">
 		<where>
 			<if test="map.fkLandladyId!=null">
-				and fkLandladyId=#{fkLandladyId}
+				and fkLandladyId=#{map.fkLandladyId}
 			</if>
+			and status="待处理"
 		</where>
 	
 	</sql>

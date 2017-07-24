@@ -40,6 +40,9 @@
 			<if test="map.carportAddressCode !=null">
 				and carportAddressCode=#{map.carportAddressCode}
 			</if>
+			<if test="map.carportEquityCode!=null">
+				and carportEquityCode=#{map.carportEquityCode}
+			</if>
 		</where>
 		
 	</sql>

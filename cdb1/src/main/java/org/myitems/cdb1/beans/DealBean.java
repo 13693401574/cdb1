@@ -37,7 +37,7 @@ public class DealBean {
 	private RobTenantsBean robTenants;
 	@Column(name="status")
 	/**状态*/
-	private String status;
+	private String status="0";
 	@OneToOne(cascade=CascadeType.REMOVE,fetch=FetchType.EAGER)
 	@JoinColumn(name="fkCarportIssueId")
 	/**车位发布外键*/

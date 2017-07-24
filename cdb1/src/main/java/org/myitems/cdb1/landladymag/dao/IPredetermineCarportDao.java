@@ -20,6 +20,13 @@ public interface IPredetermineCarportDao {
 	public void savePredetermineCarport(PredetermineCarportBean predetermineCarport);
 	
 	/**
+	 * 根据预约信息ID查询预约信息
+	 * @param id
+	 * @return
+	 */
+	public PredetermineCarportBean getPredetermineCarportById(Long id);
+	
+	/**
 	 * 根据预约信息修改预约信息的状态
 	 * @param id
 	 * @return

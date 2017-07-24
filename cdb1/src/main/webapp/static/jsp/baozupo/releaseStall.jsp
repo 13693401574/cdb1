@@ -11,14 +11,15 @@
     <meta charset="UTF-8">
     <title></title>
 
-    <link rel="stylesheet" type="text/css" href="static/easyUI/themes/default/easyui.css">
+     <link rel="stylesheet" type="text/css" href="static/easyUI/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="static/easyUI/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="static/easyUI/demo/demo.css">
+	<link rel="stylesheet" type="text/css" href="static/easyUI/demo/demo.css">
+    
     <script type="text/javascript" src="static/easyUI/jquery.min.js"></script>
     <script type="text/javascript" src="static/easyUI/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="static/js/jquery.json-2.4.js"></script>
-	<script type="text/javascript" src="static/easyUI/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="static/js/landlady/releaseStall.js"></script>
+    <script type="text/javascript" src="static/js/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="static/easyUI/locale/easyui-lang-zh_CN.js"></script>
+ <script type="text/javascript" src="static/js/landlady/releaseStall.js"></script> 
 </head>
 <body>
 <div align="center">
@@ -26,6 +27,7 @@
 </div>
 <div align="center" style="margin-top: 60px">
 	<form id="form" method="post" enctype="multipart/form-data">
+	
 		<input type="hidden" id="id" value="1"/>
 	    <div style="margin-top: 50px">
 	        <label>所在小区</label>
@@ -42,11 +44,11 @@
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>租赁开始时间</label>
-	        <input id="startTime" class="easyui-datebox" data-options="sharedCalendar:'#cc'" value="">
+	     	<input name="startTime" class="easyui-datebox" style="margin-left: 30px;" data-options="sharedCalendar:'#cc'">
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>租赁结束时间</label>
-	        <input id="endTime" class="easyui-datebox" data-options="sharedCalendar:'#cc'" value="">
+	        <input name="endTime" class="easyui-datebox" style="margin-left: 30px;" data-options="sharedCalendar:'#cc'" value="">
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>出租价格</label>
@@ -54,10 +56,11 @@
 	    </div>
 	
 	    <div style="margin-top: 50px">
-	        <input id="btn1" type="submit" target="show" class="easyui-linkbutton" style="width: 150px" value="确认"/>
+	        <input id="btn1" type="submit" target="show" class="easyui-linkbutton" style="width: 150px;height: 30px" value="确认"/>
 	        &nbsp;&nbsp;&nbsp;
-	        <a id="btn2" href="LandladyMain.jsp" target="show" class="easyui-linkbutton" style="width: 150px">取消</a>
+	        <a id="btn2" href="static/jsp/baozupo/LandladyMain.jsp" target="show" class="easyui-linkbutton" style="width: 150px">取消</a>
 	    </div>
+	    <div id="cc" class="easyui-calendar"></div>
     </form>
 </div>
 </body>

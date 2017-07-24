@@ -53,4 +53,10 @@ public class PredetermineCarportDaoImpl implements IPredetermineCarportDao {
 		sf.openSession().save(predetermineCarport);
 	}
 
+	@Override
+	public PredetermineCarportBean getPredetermineCarportById(Long id) {
+		// TODO Auto-generated method stub
+		return pcm.getPredetermineCarportById(id);
+	}
+
 }

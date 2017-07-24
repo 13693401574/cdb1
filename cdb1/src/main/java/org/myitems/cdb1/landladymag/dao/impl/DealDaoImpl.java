@@ -40,4 +40,16 @@ public class DealDaoImpl implements IDealDao {
 		return dm.getDealListByItems(map);
 	}
 
+	@Override
+	public DealBean getDealById(Long id) {
+		// TODO Auto-generated method stub
+		return dm.getDealById(id);
+	}
+
+	@Override
+	public void updateDealBean(DealBean deal) {
+		// TODO Auto-generated method stub
+		sf.getCurrentSession().update(deal);
+	}
+
 }

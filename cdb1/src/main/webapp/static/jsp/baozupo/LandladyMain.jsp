@@ -21,7 +21,7 @@
     <script type="text/javascript" src="static/easyUI/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="static/easyUI/locale/easyui-lang-zh_CN.js"></script>
     
-    <script type="text/javascript" src="static/js/CDBItems/zhao_indexjs.js"></script>
+  
     <script >
 
 	

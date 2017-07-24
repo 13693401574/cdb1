@@ -33,4 +33,16 @@ public class DealServiceImpl implements IDealService {
 		return page;
 	}
 
+	@Override
+	public DealBean getDealById(Long id) {
+		// TODO Auto-generated method stub
+		return dealDaoImpl.getDealById(id);
+	}
+
+	@Override
+	public void updateDealBean(DealBean deal) {
+		// TODO Auto-generated method stub
+		dealDaoImpl.updateDealBean(deal);
+	}
+
 }

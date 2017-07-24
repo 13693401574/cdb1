@@ -5,9 +5,9 @@
 	<resultMap type="DealBean" id="dealMap">
 		<id property="id" column="id" javaType="java.lang.Long"/>
 		<result property="status" column="status" javaType="java.lang.String"/>
-		<association property="robTenants" javaType="RobTenantsBean" column="fkRobManId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById"></association>
-		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
-		<association property="carportIssue" javaType="CarportIssueBean" column="fkCarportIssueId" fetchType="lazy" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
+		<association property="robTenants" javaType="RobTenantsBean" column="fkRobManId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById"></association>
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
+		<association property="carportIssue" javaType="CarportIssueBean" column="fkCarportIssueId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
 		</association>
 	</resultMap>
 	<select id="getDealById" resultMap="dealMap">
@@ -34,6 +34,10 @@
 			</if>
 			<if test="map.fkLandladyId != null">
 				and fkLandladyId=#{map.fkLandladyId}
+			</if>
+			<if test="map.status!=null">
+				and status=#{map.status}
+			
 			</if>
 		</where>
 	
