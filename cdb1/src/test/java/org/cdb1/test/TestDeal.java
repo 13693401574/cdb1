@@ -15,7 +15,7 @@ import org.myitems.cdb1.beans.RobTenantsBean;
 import org.myitems.cdb1.landladymag.service.IDealService;
 import org.myitems.cdb1.landladymag.service.ILandladyService;
 import org.myitems.cdb1.landladymag.service.IPredetermineCarportService;
-import org.myitems.cdb1.landladymag.service.IRobTenantsService;
+import org.myitems.cdb1.robTenantsmag.service.IRobTenantsService;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 

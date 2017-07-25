@@ -1,10 +1,10 @@
-package org.myitems.cdb1.landladymag.service.impl;
+package org.myitems.cdb1.robTenantsmag.service.impl;
 
 import javax.annotation.Resource;
 
 import org.myitems.cdb1.beans.RobTenantsBean;
-import org.myitems.cdb1.landladymag.dao.IRobTenantsDao;
-import org.myitems.cdb1.landladymag.service.IRobTenantsService;
+import org.myitems.cdb1.robTenantsmag.dao.IRobTenantsDao;
+import org.myitems.cdb1.robTenantsmag.service.IRobTenantsService;
 import org.springframework.stereotype.Service;
 
 @Service

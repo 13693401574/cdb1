@@ -6,7 +6,7 @@
 		<id property="id" column="id" javaType="java.lang.Long"/>
 		<result property="message" column="message" javaType="java.lang.String"/>
 		<result property="status" column="status" javaType="java.lang.String"/>
-		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById"></association>
+		<association property="robBean" javaType="RobTenantsBean" column="fkRobtenantId" fetchType="eager" select="org.myitems.cdb1.robTenantsmag.mapper.RobTenantsMapper.getRobTenantsById"></association>
 		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
 		<association property="carBean" javaType="CarportIssueBean" column="fkCorportIssueId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById">
 		</association>
@@ -28,6 +28,14 @@
 		<where>
 			<if test="map.fkLandladyId!=null">
 				and fkLandladyId=#{map.fkLandladyId}
+			</if>
+			<if test="map.fkCorportIssueId">
+				and fkCorportIssueId=#{map.fkCorportIssueId}
+			
+			</if>
+			<if test="map.robId">
+				and fkRobtenantId=#{map.robId}
+				
 			</if>
 			and status="待处理"
 		</where>

@@ -36,7 +36,6 @@ public class DealDaoImpl implements IDealDao {
 
 	public List<DealBean> getDealListByItems(Map map) {
 		// TODO Auto-generated method stub
-		System.out.println(map.get("fkLandladyId"));
 		return dm.getDealListByItems(map);
 	}
 
@@ -50,6 +49,18 @@ public class DealDaoImpl implements IDealDao {
 	public void updateDealBean(DealBean deal) {
 		// TODO Auto-generated method stub
 		sf.getCurrentSession().update(deal);
+	}
+
+	@Override
+	public int getCountIdByStatusAndLandladyId(String status, Long id) {
+		// TODO Auto-generated method stub
+		return dm.getCountIdByStatusAndLandladyId(status, id);
+	}
+
+	@Override
+	public int getCountIdByRobStatusAndRobladyId(String status, Long id) {
+		// TODO Auto-generated method stub
+		return dm.getCountIdByRobStatusAndRobladyId(status, id);
 	}
 
 }

@@ -31,26 +31,29 @@
 	    <div style="margin-top: 50px">
 	        <label>车位产权证编号</label>
 	        <input id="carportEquityCode" name="carportEquityCode" type="text" style="margin-left: 30px"/>
+	        <label id="isExist"></label>
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>车位所在小区</label>
 	        <input id="carportAddress" name="carportAddress" type="text" style="margin-left: 30px"/>
+	    	<label id="carportAddress1"></label>
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>小区车位编号</label>
 	        <input id="carportAddressCode" name="carportAddressCode" type="text" style="margin-left: 30px"/>
+	    	<label id="carportAddressCode1"></label>
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>车位产权复印件</label>
 	        <input id="file" type="file" name="fileName" onchange="changePhoto(this)" style="margin-left: 30px"/>
-	   		
+	   		<label id="file1"></label>
 	    </div>
 		<div style="margin-top:50px;outline: 1px,red,solid;" class="showPhoto" id="show">
 			
 		</div>
 	    <br/><br/><br/><br/><br/><br/><br/>
 	
-	    <input id="btn1" type="submit" target="show" class="easyui-linkbutton" value="确认" style="width: 150px;height:30px ">
+	    <input id="btn1" type="button" target="show" class="easyui-linkbutton" value="确认" style="width: 150px;height:30px ">
 	    &nbsp;&nbsp;&nbsp;&nbsp;
 	    <a id="btn2" href="static/jsp/baozupo/LandladyMain.jsp" target="show" class="easyui-linkbutton" style="width: 150px;height:30px">取消</a>
 	</form>

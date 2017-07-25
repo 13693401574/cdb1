@@ -17,7 +17,39 @@ public class PublicMap {
 	private String fkLandladyId;
 	private String fkCorportIssueId;
 	private String status;
+	private String fkRobtenantId;
+	private String message;
+	private String robStatus;
 	
+	
+	
+
+	public String getRobStatus() {
+		return robStatus;
+	}
+
+	public void setRobStatus(String robStatus) {
+		this.robStatus = robStatus;
+		map.put("robStatus", robStatus);
+	}
+
+	public String getFkRobtenantId() {
+		return fkRobtenantId;
+	}
+
+	public void setFkRobtenantId(String fkRobtenantId) {
+		this.fkRobtenantId = fkRobtenantId;
+		map.put("fkRobtenantId", Long.parseLong(fkRobtenantId));
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	public String getStatus() {
 		return status;
 	}

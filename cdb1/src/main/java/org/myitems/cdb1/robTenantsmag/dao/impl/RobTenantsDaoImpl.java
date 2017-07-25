@@ -1,11 +1,11 @@
-package org.myitems.cdb1.landladymag.dao.impl;
+package org.myitems.cdb1.robTenantsmag.dao.impl;
 
 import javax.annotation.Resource;
 
 import org.hibernate.SessionFactory;
 import org.myitems.cdb1.beans.RobTenantsBean;
-import org.myitems.cdb1.landladymag.dao.IRobTenantsDao;
-import org.myitems.cdb1.landladymag.mapper.RobTenantsMapper;
+import org.myitems.cdb1.robTenantsmag.dao.IRobTenantsDao;
+import org.myitems.cdb1.robTenantsmag.mapper.RobTenantsMapper;
 import org.springframework.stereotype.Repository;
 @Repository
 public class RobTenantsDaoImpl implements IRobTenantsDao {

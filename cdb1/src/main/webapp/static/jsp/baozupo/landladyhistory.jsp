@@ -37,8 +37,9 @@
 		<input type="hidden" id="id" value="1"/>
 		<span>状态：</span> 
 		<select id="status">
-			<option value="已投诉">已投诉</option>
-			<option value="未投诉">未投诉</option>
+			<option value="">全部</option>
+			<option value="1">已投诉</option>
+			<option value="0">未投诉</option>
 		</select>
 		 <a id="btn1" href="javascript:void(0)" class="easyui-linkbutton" style="width: 150px">查询</a>
 	</div>

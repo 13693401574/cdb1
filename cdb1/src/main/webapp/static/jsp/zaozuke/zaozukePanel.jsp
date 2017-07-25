@@ -1,23 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%
+	String path= request.getContextPath();//项目名称
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
+<base href="<%= basePath%>">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../../static/css/managementPanle.css">
+    <link rel="stylesheet" type="text/css" href="static/css/managementPanle.css">
 
-    <link rel="stylesheet" type="text/css" href="../../easyUI/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../../easyUI/themes/icon.css">
-
-    <link rel="stylesheet" type="text/css" href="../../easyUI/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../../easyUI/themes/metro/icon.css">
-
-    <script type="text/javascript" src="../../easyUI/jquery.min.js"></script>
-    <script type="text/javascript" src="../../easyUI/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/easyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="static/easyUI/themes/icon.css">
+    <script type="text/javascript" src="static/easyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="static/easyUI/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="static/js/jquery.json-2.4.js"></script>
+	<script type="text/javascript" src="static/easyUI/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="static/js/robTenants/zaozukePanel.js"></script>
 </head>
 <body>
 <div id="cc" class="easyui-layout" style="width:100%;height:840px;">
+	<input type="hidden" id="id" value="1"/>
     <div data-options="region:'north',split:true" style="height:100px;">
         <div id="welcome">
             欢迎你XXX
@@ -35,7 +40,8 @@
         <div style="width:100%;height: 100%">
             <div class="easyui-accordion" style="height: 300px;border: none" >
                 <div title="抢租客用户" style="padding:10px;">
-                    <a id="btn1" href="zhao_index.jsp" target="show" class="easyui-linkbutton" style="width: 150px">待租车位信息</a>
+                    <a id="btn1" href="static/jsp/zaozuke/zhao_index.jsp" target="show" class="easyui-linkbutton" style="width: 150px">待租车位信息</a>
+                	<a id="btn2" href="static/jsp/zaozuke/updateRobUserInfo.jsp" target="show" class="easyui-linkbutton" style="width: 150px">个人信息修改</a>
                 </div>
             </div>
 

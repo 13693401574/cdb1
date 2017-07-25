@@ -1,4 +1,4 @@
-package org.myitems.cdb1.landladymag.dao;
+package org.myitems.cdb1.robTenantsmag.dao;
 
 import org.myitems.cdb1.beans.RobTenantsBean;
 

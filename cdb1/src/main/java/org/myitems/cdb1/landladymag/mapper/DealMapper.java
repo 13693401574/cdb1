@@ -25,4 +25,20 @@ public interface DealMapper {
 	
 	
 	public DealBean getDealById(@Param("id")Long id);
+	
+	/**
+	 * 根据包租婆id和被投诉状态查询包租婆被投诉的次数
+	 * @param status
+	 * @return
+	 */
+	@Select("select count(id) from t_deal where fkLandladyId=#{id} and status=#{status}")
+	public int getCountIdByStatusAndLandladyId(@Param("status")String status,@Param("id")Long id);
+	
+	/**
+	 * 根据抢租客id和被投诉状态查询包租婆被投诉的次数
+	 * @param status
+	 * @return
+	 */
+	@Select("select count(id) from t_deal where fkRobManId=#{id} and robStatus=#{status}")
+	public int getCountIdByRobStatusAndRobladyId(@Param("status")String status,@Param("id")Long id);
 }

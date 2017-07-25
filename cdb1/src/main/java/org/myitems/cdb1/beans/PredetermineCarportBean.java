@@ -37,7 +37,7 @@ public class PredetermineCarportBean implements Serializable{
 	private String message;
 	@Column(name="status",length=20)
 	/**状态*/
-	private String status;
+	private String status="待处理";
 	
 	/**抢租客实体Bean*/
 	@ManyToOne(cascade=CascadeType.REMOVE,fetch=FetchType.LAZY)

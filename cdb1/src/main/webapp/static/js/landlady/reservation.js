@@ -81,10 +81,14 @@ $(function(){
 	
 	$("#btn1").click(function(){
 		 var row = $('#dg').datagrid('getSelected');
-         var publicMap={fkCorportIssueId:row.fkCorportIssueId}
-         var json = $.toJSON(publicMap);
-         
-         if (row){
+        
+         if (row==null){
+        	alert("请选择行") 
+         }
+         else{
+        	 var publicMap={fkCorportIssueId:row.fkCorportIssueId}
+             var json = $.toJSON(publicMap);
+        	 
              uri = "landladys/fkCarportApplicationId/"+row.id;
              $.ajax({
      			type:"PUT",

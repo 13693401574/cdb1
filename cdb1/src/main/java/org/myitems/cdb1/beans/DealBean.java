@@ -38,6 +38,8 @@ public class DealBean {
 	@Column(name="status")
 	/**状态*/
 	private String status="0";
+	@Column(name="robStatus")
+	private String robStatus="0";
 	@OneToOne(cascade=CascadeType.REMOVE,fetch=FetchType.EAGER)
 	@JoinColumn(name="fkCarportIssueId")
 	/**车位发布外键*/
@@ -64,6 +66,18 @@ public class DealBean {
 		this.status = status;
 	}
 	
+	public LandladyComplainBean getLandladyComplainBean() {
+		return landladyComplainBean;
+	}
+	public void setLandladyComplainBean(LandladyComplainBean landladyComplainBean) {
+		this.landladyComplainBean = landladyComplainBean;
+	}
+	public String getRobStatus() {
+		return robStatus;
+	}
+	public void setRobStatus(String robStatus) {
+		this.robStatus = robStatus;
+	}
 	public LandladyBean getLandlady() {
 		return landlady;
 	}
@@ -85,7 +99,7 @@ public class DealBean {
 	@Override
 	public String toString() {
 		return "DealBean [id=" + id + ", landlady=" + landlady + ", robTenants=" + robTenants + ", status=" + status
-				+ ", carportIssue=" + carportIssue + ", landladyComplainBean=" + landladyComplainBean + "]";
+				+ ", robStatus=" + robStatus + ", landladyComplainBean=" + landladyComplainBean + "]";
 	}
 	
 	

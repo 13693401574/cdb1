@@ -1,8 +1,10 @@
 package org.myitems.cdb1.landladymag.controller;
 
 
+
+
 import java.io.File;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,10 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 
-import org.aspectj.bridge.Message;
+import javax.servlet.http.HttpSession;
+
+
 import org.myitems.cdb1.beans.CarportApplicationBean;
 import org.myitems.cdb1.beans.CarportIssueBean;
 import org.myitems.cdb1.beans.DealBean;
@@ -23,24 +25,27 @@ import org.myitems.cdb1.beans.Messager;
 import org.myitems.cdb1.beans.Pager;
 import org.myitems.cdb1.beans.PredetermineCarportBean;
 import org.myitems.cdb1.beans.PublicMap;
-import org.myitems.cdb1.beans.RobTenantsBean;
+
 import org.myitems.cdb1.landladymag.service.ICarportApplicationService;
 import org.myitems.cdb1.landladymag.service.ICarportIssueService;
 import org.myitems.cdb1.landladymag.service.IDealService;
 import org.myitems.cdb1.landladymag.service.ILandladyComplainService;
 import org.myitems.cdb1.landladymag.service.ILandladyService;
 import org.myitems.cdb1.landladymag.service.IPredetermineCarportService;
-import org.myitems.cdb1.landladymag.service.IRobTenantsService;
+import org.myitems.cdb1.robTenantsmag.service.IRobTenantsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 
 @RequestMapping("/landladys")
 @Controller
@@ -60,6 +65,27 @@ public class LandladyController {
 	private IRobTenantsService robTenantsServiceImpl;
 	@Resource
 	private ILandladyComplainService landladyComplainServiceImpl;
+	
+	/**
+	 * 模拟登陆
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/login/{id}",method=RequestMethod.GET,produces="application/json;charset=utf-8")
+	public @ResponseBody Messager likeLogin(@PathVariable("id") Long id){
+		HttpSession session=((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession();
+		Messager msg=new Messager(true,"登陆成功");
+		
+		LandladyBean landlady=landladyServiceImpl.getLandladyById(id);
+		if(landlady!=null){
+			session.setAttribute("landlady", landlady);
+		}else{
+			msg=new Messager(false,"登陆失败");
+		}
+		
+		
+		return msg;
+	}
 	
 	@RequestMapping(value="/id",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	public @ResponseBody List<CarportIssueBean> getCarportIssue(@RequestBody PublicMap publicMap){
@@ -96,8 +122,8 @@ public class LandladyController {
 		carportApplicationServiceImpl.saveCarportApplication(c);
 		return "static/jsp/baozupo/LandladyMain";
 	}
-	@RequestMapping(value="/carportEquityCode",method=RequestMethod.GET,produces="application/json;charset=utf-8")
-	public @ResponseBody StringBuilder CarportApplicationIsexist(@PathVariable String carportEquityCode){
+	@RequestMapping(value="/carportApplicationIsexist/{carportEquityCode}",method=RequestMethod.GET,produces="application/json;charset=utf-8")
+	public @ResponseBody StringBuilder CarportApplicationIsexist(@PathVariable("carportEquityCode") String carportEquityCode){
 		Pager p=new Pager();
 		p.setPage(1);
 		p.setRows(1);
@@ -106,8 +132,15 @@ public class LandladyController {
 		map.put("carportEquityCode", carportEquityCode);
 		carportApplicationServiceImpl.getCarportApplicationListByItems(map, p);
 		List<CarportApplicationBean> list=(List<CarportApplicationBean>) p.getDatas();
-		System.out.println(list);
-		return null;
+		StringBuilder s=new StringBuilder();
+		if(list!=null&&list.size()!=0){
+			s.append("1");
+			return s;
+		}else{
+			s.append("0");
+			return s;
+		}
+		
 	}
 	
 	@RequestMapping(value="/{fkLandladyId}",method=RequestMethod.GET,produces="application/json;charset=utf-8")
@@ -169,6 +202,9 @@ public class LandladyController {
 	@RequestMapping(value="/deal/{fkLandladyId}",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	public @ResponseBody List<DealBean> getDeal(@RequestBody PublicMap publicMap,@PathVariable("fkLandladyId") String fkLandladyId){
 		
+		if("".equals(publicMap.getRobStatus())){
+			publicMap.setRobStatus(null);
+		}
 		Pager p=new Pager();
 		p.setPage(Integer.parseInt(publicMap.getPage()));
 		p.setRows(Integer.parseInt(publicMap.getRows()));
@@ -189,7 +225,7 @@ public class LandladyController {
 			String nowTime = dateFormat.format(now); 
 			nowDate = dateFormat.parse(nowTime);
 			DealBean deal=dealServiceImpl.getDealById(dealId);
-			deal.setStatus("1");
+			deal.setRobStatus("1");
 			lcb.setBeComplaint(deal.getRobTenants().getUserName());
 			lcb.setComplainant(deal.getLandlady().getUserName());
 			lcb.setDealBean(deal);
@@ -202,6 +238,39 @@ public class LandladyController {
 			e.printStackTrace();
 		}
 		
+		
+		return msg;
+	}
+	
+	@RequestMapping(value="/decidePassword",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	public @ResponseBody Messager decidePasswordIsTrue(@RequestBody LandladyBean land){
+		Messager msg;
+		LandladyBean landlady=landladyServiceImpl.getLandladyById(land.getId());
+		if(landlady.getPwd().equals(land.getPwd())){
+			msg=new Messager(true,"1");
+		}else{
+			msg=new Messager(false,"0");
+		}
+		
+		
+		return msg;
+	}
+	@RequestMapping(value="/updateLandlady",method=RequestMethod.PUT,produces="application/json;charset=utf-8")
+	public @ResponseBody Messager updateLandlady(@RequestBody LandladyBean lady){
+		Messager msg=new Messager(true,"修改成功");
+		Long id=lady.getId();
+		System.out.println(id);
+		try {
+			landladyServiceImpl.updateLandlady(lady);
+			LandladyBean bean=landladyServiceImpl.getLandladyById(id);
+			HttpSession session=((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession();
+			
+			session.setAttribute("landlady", bean);
+		}catch (Exception e) {
+			
+			msg=new Messager(false,"修改失败");
+			e.printStackTrace();
+		}
 		
 		return msg;
 	}

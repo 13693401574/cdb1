@@ -11,7 +11,7 @@
 		<result property="status" column="status" javaType="java.lang.String"/>
 		
 		<association property="appBean" javaType="CarportApplicationBean" column="fkCarportApplicationId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.CarportApplicationMapper.getCarportApplicationById"></association>
-		
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" fetchType="eager" select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById"></association>
 	</resultMap>
 	
 	
@@ -39,8 +39,10 @@
 			<if test="map.endTime !=null">
 				<![CDATA[
 					and endTime <=#{map.endTime}
-				]]>
-				
+				]]>	
+			</if>
+			<if test="map.status!=null">
+				and status=#{map.status}
 			</if>
 		</where>
 		

@@ -1,7 +1,7 @@
 $(function(){
 	var id=$("#id").val();
 	
-	var uri="landladys/login/"+id;
+	var uri="robTenants/login/"+id;
 	
 	$.ajax({
 		type:"GET",

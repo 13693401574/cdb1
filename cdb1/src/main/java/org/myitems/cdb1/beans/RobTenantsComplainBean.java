@@ -1,6 +1,6 @@
 package org.myitems.cdb1.beans;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,7 +41,7 @@ public class RobTenantsComplainBean {
 	private Date complainantDate;
 	@Column(name="status")
 	/**投诉状态*/
-	private String status;
+	private String status="待处理";
 	@Column(name="reasons",length=120)
 	/**投诉理由*/
 	private String reasons;

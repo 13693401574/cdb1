@@ -1,4 +1,4 @@
-package org.myitems.cdb1.landladymag.mapper;
+package org.myitems.cdb1.robTenantsmag.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

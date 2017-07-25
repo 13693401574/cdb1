@@ -42,4 +42,18 @@ public interface IDealDao {
 	 * @param deal
 	 */
 	public void updateDealBean(DealBean deal);
+	
+	/**
+	 * 根据包租婆id和被投诉状态查询包租婆被投诉的次数
+	 * @param status
+	 * @return
+	 */
+	public int getCountIdByStatusAndLandladyId(String status,Long id);
+	
+	/**
+	 * 根据抢租客id和被投诉状态查询包租婆被投诉的次数
+	 * @param status
+	 * @return
+	 */
+	public int getCountIdByRobStatusAndRobladyId(String status,Long id);
 }

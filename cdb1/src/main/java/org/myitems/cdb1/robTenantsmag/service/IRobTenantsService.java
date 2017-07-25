@@ -1,4 +1,4 @@
-package org.myitems.cdb1.landladymag.service;
+package org.myitems.cdb1.robTenantsmag.service;
 
 import org.myitems.cdb1.beans.RobTenantsBean;
 

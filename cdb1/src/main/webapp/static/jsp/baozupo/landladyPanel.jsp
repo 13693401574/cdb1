@@ -21,10 +21,10 @@
     <script type="text/javascript" src="static/easyUI/jquery.easyui.min.js"></script>
    <script type="text/javascript" src="static/js/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="static/js/landlady/landladyPanle.js"></script>
-<!--     <script type="text/javascript" src="static/js/landlady/landladyMain.js"></script> -->
 </head>
 <body>
 <div id="cc" class="easyui-layout" style="width:100%;height:840px;">
+	<input type="hidden" id="id" value="1"/>
     <div data-options="region:'north',split:true" style="height:100px;">
         <div id="welcome">
             欢迎你<label id="1"></label>
@@ -44,7 +44,7 @@
                 <div title="包租婆用户" style="padding:10px;">
                     <a id="btn1" href="static/jsp/baozupo/LandladyMain.jsp?id=1" target="show" class="easyui-linkbutton" style="width: 150px">招租车位信息</a>
                     <br/><br/><br/>
-                    <a id="btn2" href="updateUserInfo.jsp" target="show" class="easyui-linkbutton" style="width: 150px">个人信息修改</a>
+                    <a id="btn2" href="static/jsp/baozupo/updateUserInfo.jsp" target="show" class="easyui-linkbutton" style="width: 150px">个人信息修改</a>
                 </div>
             </div>
 

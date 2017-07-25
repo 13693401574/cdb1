@@ -31,7 +31,6 @@
 		<input type="hidden" id="id" value="1"/>
 	    <div style="margin-top: 50px">
 	        <label>所在小区</label>
-	        
 	        <select id="address" style="margin-left: 30px;width:173px;height: 21px;">   
 			    
 			</select>  
@@ -44,19 +43,19 @@
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>租赁开始时间</label>
-	     	<input name="startTime" class="easyui-datebox" style="margin-left: 30px;" data-options="sharedCalendar:'#cc'">
+	     	<input id="startTime" name="startTime" class="easyui-datebox" style="margin-left: 30px;" data-options="sharedCalendar:'#cc'">
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>租赁结束时间</label>
-	        <input name="endTime" class="easyui-datebox" style="margin-left: 30px;" data-options="sharedCalendar:'#cc'" value="">
+	        <input id="endTime" name="endTime" class="easyui-datebox" style="margin-left: 30px;" data-options="sharedCalendar:'#cc'" value="">
 	    </div>
 	    <div style="margin-top: 50px">
 	        <label>出租价格</label>
-	        <input name="price" type="text" style="margin-left: 30px"/>
+	        <input id="price" name="price" type="text" style="margin-left: 30px"/>
 	    </div>
 	
 	    <div style="margin-top: 50px">
-	        <input id="btn1" type="submit" target="show" class="easyui-linkbutton" style="width: 150px;height: 30px" value="确认"/>
+	        <input id="btn1" type="button" target="show" class="easyui-linkbutton" style="width: 150px;height: 30px" value="确认"/>
 	        &nbsp;&nbsp;&nbsp;
 	        <a id="btn2" href="static/jsp/baozupo/LandladyMain.jsp" target="show" class="easyui-linkbutton" style="width: 150px">取消</a>
 	    </div>

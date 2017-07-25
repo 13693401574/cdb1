@@ -10,18 +10,16 @@
 $(function(){
 	
 	var rows;
-	var fkLandladyId;
-	var robStatus=null;
+	var fkRobtenantId;
+	var status=null;
 	function findData(page,rows){
-		fkLandladyId=$("#id").val();
+		fkRobtenantId=$("#id").val();
 		$("#status").change(function(){
-			robStatus=$("#status").val();
+			status=$("#status").val();
 		})
-		
-		
-		var publicMap={page:page,rows:rows,fkLandladyId:fkLandladyId,robStatus:robStatus};
+		var publicMap={page:page,rows:rows,fkRobtenantId:fkRobtenantId,status:status};
 		var json = $.toJSON(publicMap);
-		var uri="landladys/deal/"+fkLandladyId;
+		var uri="robTenants/deal/"+fkRobtenantId;
 		rows = [];
 		$.ajax({
 			type:"POST",
@@ -30,14 +28,15 @@ $(function(){
 			contentType:"application/json",
 			async:false,
 			success:function(data){
+			
 				for(var i=0;i<data.length;i++){
-					if(data[i].robStatus=="1"){
+					if(data[i].status=="1"){
 						rows.push({
 							id:data[i].id,
 							carpotInfo: data[i].carportIssue.appBean.carportAddress+""+data[i].carportIssue.appBean.carportAddressCode,
 							startTime: data[i].carportIssue.startTime,
 							endTime: data[i].carportIssue.endTime,
-							robName: data[i].robTenants.userName,
+							landladyUserName: data[i].landlady.userName,
 							status: "已投诉"
 						});
 					}else{
@@ -46,7 +45,7 @@ $(function(){
 							carpotInfo: data[i].carportIssue.appBean.carportAddress+""+data[i].carportIssue.appBean.carportAddressCode,
 							startTime: data[i].carportIssue.startTime,
 							endTime: data[i].carportIssue.endTime,
-							robName: data[i].robTenants.userName,
+							landladyUserName: data[i].landlady.userName,
 							status: "未投诉"
 						});
 					}
@@ -127,7 +126,7 @@ $(function(){
 		}
 		 $.messager.confirm('确认','您确认进行此操作？',function(r){
 	            if (r){
-	            	var uri = "landladys/saveLandladyComplain/"+dealId;
+	            	var uri = "robTenants/saveRobComplain/"+dealId;
 	        		var publicMap={reasons:reason}
 	                var json = $.toJSON(publicMap);
 	                 $.ajax({

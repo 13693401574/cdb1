@@ -50,7 +50,7 @@ public class PredetermineCarportDaoImpl implements IPredetermineCarportDao {
 	@Override
 	public void savePredetermineCarport(PredetermineCarportBean predetermineCarport) {
 		// TODO Auto-generated method stub
-		sf.openSession().save(predetermineCarport);
+		sf.getCurrentSession().save(predetermineCarport);
 	}
 
 	@Override

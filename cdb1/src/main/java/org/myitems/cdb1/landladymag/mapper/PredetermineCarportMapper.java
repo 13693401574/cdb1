@@ -36,7 +36,7 @@ public interface PredetermineCarportMapper {
 		@Result(id=true,property="id",column="id",javaType=Long.class),
 		@Result(property="message",column="message",javaType=String.class),
 		@Result(property="status",column="status",javaType=String.class),
-		@Result(property="robBean",column="fkRobtenantId",javaType=RobTenantsBean.class,one=@One(select="org.myitems.cdb1.landladymag.mapper.RobTenantsMapper.getRobTenantsById")),
+		@Result(property="robBean",column="fkRobtenantId",javaType=RobTenantsBean.class,one=@One(select="org.myitems.cdb1.robTenantsmag.mapper.RobTenantsMapper.getRobTenantsById")),
 		@Result(property="landlady",column="fkLandladyId",javaType=LandladyBean.class,one=@One(select="org.myitems.cdb1.landladymag.mapper.LandladyMapper.getLandladyById")),
 		@Result(property="carBean",column="fkCorportIssueId",javaType=CarportIssueBean.class,one=@One(select="org.myitems.cdb1.landladymag.mapper.CarportIssueMapper.getCarportIssueById"))
 	})

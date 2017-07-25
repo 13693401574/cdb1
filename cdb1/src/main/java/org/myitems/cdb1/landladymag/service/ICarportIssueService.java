@@ -36,5 +36,6 @@ public interface ICarportIssueService {
 	 * @return
 	 */
 	public Pager getCarportIssueListByItems(Map map,Pager page);
+	
 
 }
