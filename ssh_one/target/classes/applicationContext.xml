@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd">
+ 
+    <!-- 第一步：定义扫包规则 -->
+	<context:component-scan base-package="org.springHibernate">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<!-- mysql信息  -->   
+	<context:property-placeholder location="classpath:mysql.properties" ignore-unresolvable="true"/>
+  
+    <!-- 第二步：配置数据源（连接池） 在生产环境下，推荐使用：DBCP,C3P0，以及阿里巴巴提供的Druid-->
+	<!-- destory-method="close" 表示销毁容器时，需要先关闭连接池中所有的JDBC连接，释放连接资源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    	<property name="driverClass" value="${jdbc.driverClassName}"></property>
+    	<property name="jdbcUrl" value="${jdbc.url}"></property>
+    	<property name="user" value="${jdbc.username}"></property>
+    	<property name="password" value="${jdbc.password}"></property>
+    	<property name="initialPoolSize" value="15"></property><!-- 初始化15个连接 -->
+    	<property name="minPoolSize" value="15"></property><!-- 连接最少数量 -->
+    	<property name="maxPoolSize" value="50"></property><!-- 包括激活的最大连接数量 -->
+    	<property name="acquireIncrement" value="15"></property><!-- 当连接不够用时，需要重新从数据库获取的连接数 -->
+    	<property name="maxStatements" value="200"></property><!-- 最大预编译对象 -->
+    	<property name="maxIdleTime" value="60"></property><!-- 空闲连接最大的存活时间 -->
+    	<property name="idleConnectionTestPeriod" value="30"></property><!-- 多长时间检测一次空闲连接 -->
+    	<property name="acquireRetryAttempts" value="30"></property><!-- 从数据库获取连接失败后，需要重复尝试的次数 -->
+    	<property name="checkoutTimeout" value="30"></property><!-- 多长时间回收一次超时连接 -->
+    	<property name="preferredTestQuery" value="select now() from dual"></property>
+    </bean>
+     <!-- 第三步，需要配置SessionFactory -->
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+     	<property name="dataSource" ref="dataSource"></property>
+     	<property name="hibernateProperties">
+     		<props>
+     			<prop key="hibernate.dialect">
+     				org.hibernate.dialect.MySQLDialect
+     			</prop>
+     			<prop key="hibernate.show_sql">
+     				true
+     			</prop>
+     			<prop key="hibernate.format_sql">
+     				true
+     			</prop>
+     		</props>
+     	</property>
+     	 <!-- 如果有人仍然采用JPA规范来描述ORM关系的话，可以采用以下方式来进行扫描 -->
+     	<property name="packagesToScan">
+     		<list>
+     			<value>org.springHibernate.beans</value>
+     		</list>
+     	</property>
+     	   <!-- 如果有人仍然采用XML来描述ORM关系的话，可以采用以下方式来进行扫描 -->
+    <!--  	<property name="mappingDirectoryLocations">
+     		<list>
+     			<value>org/framestudy/hibernate/xmls</value>
+     		</list>
+     	</property> -->
+     </bean>
+       
+    <!-- 第四步，配置事务管理器 -->
+     <bean id="txManage" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+     	<property name="sessionFactory" ref="sessionFactory"></property>
+     </bean> 
+ 
+     
+     <!-- 第五步，采用Spring容器提供的2种事务方式来管理事务 -->
+     <!-- Spring声明式事务管理方式，主要采用AOP来进行管理 -->
+	<tx:advice id="txAdvice" transaction-manager="txManage">
+        <tx:attributes>
+        	<tx:method name="*" read-only="true"/>
+            <tx:method name="save*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            <tx:method name="add*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            <tx:method name="insert*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            <tx:method name="create*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            
+            <tx:method name="update*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            <tx:method name="modify*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            <tx:method name="change*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            
+            <tx:method name="delete*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            <tx:method name="remove*" read-only="false" isolation="REPEATABLE_READ" rollback-for="java.lang.Exception" propagation="REQUIRED"/>
+            
+            <tx:method name="find*" read-only="true" propagation="NOT_SUPPORTED"/>
+            <tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED"/>
+            <tx:method name="query*" read-only="true" propagation="NOT_SUPPORTED"/>
+            <tx:method name="search*" read-only="true" propagation="NOT_SUPPORTED"/>
+            <tx:method name="select*" read-only="true" propagation="NOT_SUPPORTED"/>
+            
+        </tx:attributes>
+    </tx:advice> 
+ 
+ 	<aop:config>
+		<aop:pointcut expression="execution(* org.springHibernate.*msg.service.impl.*ServiceImpl.*(..))" id="serviceMethod"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
+	</aop:config>
+	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+        
+</beans>        

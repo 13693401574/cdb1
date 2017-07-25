@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+   
+ 	<context:component-scan base-package="org.springHibernate">
+	 	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+		<!-- 容器提供的过滤器类型还有：assignable(类名)，regex(正则)，aspectj(切面) -->
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+ 
+ 	<!-- 开启springmvc注解支持 -->
+	<mvc:annotation-driven />
+	   
+	<!--指定静态块  -->
+	<mvc:resources location="/static/" mapping="/static/**"></mvc:resources>
+ 
+  <!--json注解适配器  -->
+	 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<!-- json 转换器  -->
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				</bean>
+			</list>
+		</property> 
+	</bean> 
+	 
+	 	 <!-- Spring提供的避免Hibernate懒加载异常的过滤器  
+  	让Session在请求解释完成之后再关闭，从而避免懒加载异常 -->  
+	<!-- <filter>  
+    	<filter-name>openSessionInViewFilter</filter-name>  
+  	  <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>  
+  	</filter>  
+  
+	<filter-mapping>  
+   	 	<filter-name>openSessionInViewFilter</filter-name>  
+    	<url-pattern>/*</url-pattern>  
+ 	 </filter-mapping>   -->
+	 
+	 
+	  
+	       
+    <!-- 配置一个试图解析器ViewResolver(应用控制器) --> 
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<!-- 如果你的页面使用到了JSTL技术，需要指定JstlView类来专门解析 -->
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+    	<property name="prefix" value="/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean> 
+	  
+ 
+ </beans>       
