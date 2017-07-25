@@ -1,0 +1,16 @@
+.tr {
+    height: 80px;
+}
+.btn {
+    width: 80px;!important;
+    height: 30px;!important;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.td {
+    width: 200px;
+    text-align: right;
+}
+.input {
+    height: 30px;!important;
+}

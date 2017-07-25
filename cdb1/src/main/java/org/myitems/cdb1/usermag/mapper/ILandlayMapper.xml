@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间  -->
+<mapper namespace="org.myitems.cdb1.usermag.mapper.ILandlayMapper">
+	<resultMap type="CarportApplicationBean" id="carMap">
+		<id property="id" column="id" javaType="java.lang.Long"/>
+		<result property="carportEquityCode" column="carportEquityCode" javaType="java.lang.String"/>
+		<result property="carportAddress" column="carportAddress" javaType="java.lang.String"/>
+		<result property="carportAddressCode" column="carportAddressCode" javaType="java.lang.String"/>
+		<result property="equityCopies" column="equityCopies" javaType="java.lang.String"/>
+		<result property="status" column="status" javaType="java.lang.String"/>
+		<association property="landlady" javaType="LandladyBean" column="fkLandladyId" select="org.myitems.cdb1.usermag.mapper.ILandlayMapper.selectLandlady"></association>
+	
+	</resultMap>
+	
+	<select id="findAll" resultMap="carMap">
+	select * from t_carportapplication as car,t_landlady AS la
+	<include refid="carMySql"></include>
+	
+	</select>
+ 	
+	<sql id="carMySql">
+		<where>		
+			and car.fkLandladyId=la.id
+			<if test="map.carportEquityCode!=null">
+				and car.carportEquityCode like CONCAT(#{map.carportEquityCode},'%')
+			</if>
+			<if test="map.realName!=null">
+				and la.realName like CONCAT(#{map.realName},'%')
+			</if>
+			
+			<if test="map.idCard!=null">
+				and la.idCard like CONCAT(#{map.idCard},'%')
+			</if>
+			<if test="map.phone!=null">
+				and la.phone like CONCAT(#{map.phone},'%')
+			</if>
+		</where>
+	
+	</sql> 
+	
+	
+	
+	
+</mapper>

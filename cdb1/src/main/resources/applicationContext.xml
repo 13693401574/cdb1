@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd" default-lazy-init="true">
+
+	<!-- 第一步：定义扫包规则 -->
+	<context:component-scan base-package="org.myitems.cdb1"></context:component-scan>
+	<context:property-placeholder location="classpath:mysql.properties"
+		ignore-unresolvable="true" />
+
+
+	<!-- <description>配置主-从数据源信息</description> -->
+
+	<bean id="db1" class="com.atomikos.jdbc.nonxa.AtomikosNonXADataSourceBean">
+	<property name="uniqueResourceName">
+		<value>atomikosNonXADS1</value>
+	</property>
+	<property name="driverClassName">
+		<value>com.mysql.jdbc.Driver</value>
+	</property>
+	<property name="url">
+		<value>${master.jdbc.url}</value>
+	</property>
+	<property name="user">
+		<value>root</value>
+	</property>
+	<property name="password">
+		<value>123</value>
+	</property>
+	<property name="poolSize">
+		<value>5</value>
+	</property>
+	<property name="borrowConnectionTimeout">
+		<value>60</value>
+	</property>
+</bean>
+
+
+	<bean id="db2" class="com.atomikos.jdbc.nonxa.AtomikosNonXADataSourceBean">
+	<property name="uniqueResourceName">
+		<value>atomikosNonXADS2</value>
+	</property>
+	<property name="driverClassName">
+		<value>com.mysql.jdbc.Driver</value>
+	</property>
+	<property name="url">
+		<value>${master.jdbc.url}</value>
+	</property>
+	<property name="user">
+		<value>root</value>
+	</property>
+	<property name="password">
+		<value>123</value>
+	</property>
+	<property name="poolSize">
+		<value>5</value>
+	</property>
+	<property name="borrowConnectionTimeout">
+		<value>60</value>
+	</property> 
+</bean>
+	
+
+	<!-- 第三步：配置SessionFactory -->
+
+	<!-- mybatis的SessionFactory -->
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="db1"></property>
+		<!-- typeAliasesPackage 自动扫描取类别名，值里面如果由多个包，包间需要采用,或;间隔 -->
+		<property name="typeAliasesPackage" value="org.myitems.cdb1.beans"></property>
+	</bean>
+	<!-- 第四步：配置SQL映射器的扫描组件 -->
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- basePackage 自动扫描Sql映射文件或者JAVA接口，值里面如果由多个包，包间需要采用,或;间隔 -->
+		<property name="basePackage" value="org.myitems.cdb1.companymag.mapper;
+		org.myitems.cdb1.contractmag.mapper;org.myitems.cdb1.landladymag.mapper;
+		org.myitems.cdb1.robTenantsmag.mapper;org.myitems.cdb1.systenmag.mapper;
+		org.myitems.cdb1.usermag.mapper"></property>
+		<!-- 目的是将SQL映射器与Session进行关联 -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean> 
+
+	<!-- hibernate的SessionFactory -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="db2"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.formate_sql">true</prop>
+			</props>
+		</property>
+		<!-- 若使用jpa规范来描述orm关系，用以下方式扫描 -->
+		<property name="packagesToScan">
+			<list>
+				<value>org.myitems.cdb1.beans</value>
+			</list>
+		</property>
+	</bean>
+
+	
+	<!-- 第五步：配置逻辑事务管理器 -->
+
+
+	<!-- jta事务管理器 -->
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<property name="forceShutdown" value="false" />
+	</bean>
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.J2eeUserTransaction">
+		<property name="transactionTimeout" value="300" />
+	</bean>
+	
+	
+	<bean id="transactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager"
+		depends-on="atomikosTransactionManager,atomikosUserTransaction">
+		<property name="transactionManager" ref="atomikosTransactionManager" />
+		<property name="userTransaction" ref="atomikosUserTransaction" />
+		<property name="allowCustomIsolationLevels" value="true" />
+	</bean>
+
+	<!-- 第六步：配置Spring容器管理事务的2种手段 -->
+	<!-- Spring编程式事务管理方式，主要采用注解来进行管理 -->
+	<!-- <tx:annotation-driven transaction-manager="txManage"></tx:annotation-driven> -->
+
+	<!-- Spring声明式事务管理方式，主要采用AOP来进行管理 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" read-only="true" />
+			<tx:method name="save*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+			<tx:method name="add*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+			<tx:method name="insert*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+			<tx:method name="create*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+
+			<tx:method name="update*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+			<tx:method name="modify*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+			<tx:method name="change*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+
+			<tx:method name="delete*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+			<tx:method name="remove*" read-only="false" isolation="REPEATABLE_READ"
+				rollback-for="java.lang.Exception" propagation="REQUIRED" />
+
+			<tx:method name="find*" read-only="true" propagation="NOT_SUPPORTED" />
+			<tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED" />
+			<tx:method name="query*" read-only="true" propagation="NOT_SUPPORTED" />
+			<tx:method name="search*" read-only="true" propagation="NOT_SUPPORTED" />
+			<tx:method name="select*" read-only="true" propagation="NOT_SUPPORTED" />
+
+		</tx:attributes>
+
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut expression="execution(* org.myitems.cdb1.*mag.service.impl.*ServiceImpl.*(..))" id="serviceMethod"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
+	</aop:config>
+
+	<aop:aspectj-autoproxy />
+</beans>

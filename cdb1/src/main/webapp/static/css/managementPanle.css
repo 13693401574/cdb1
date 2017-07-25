@@ -1,0 +1,32 @@
+#cancel {
+    margin-left: 90%;
+    margin-top: -20px;
+}
+#btn {
+    width: 80px;!important;
+    font-weight: bolder;
+}
+#welcome {
+    float: left;
+    margin-left: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.welcome {
+    margin-left: 40%;
+}
+.welcome h1 {
+    color: blue;
+    font-style: italic;
+    font-size: 26px;
+}
+.manage{
+    text-align: center;
+}
+.manageOne{
+    margin-top: 10px;
+}
+.manageOne a{
+    width: 120px;!important;
+    height: 30px;!important;
+}
