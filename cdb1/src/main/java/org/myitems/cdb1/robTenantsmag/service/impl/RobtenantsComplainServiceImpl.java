@@ -26,7 +26,6 @@ public class RobtenantsComplainServiceImpl implements IRobtenantsComplainService
 	private ILandladyDao landladyDaoImpl;
 	@Override
 	public void saveRobTenantsComplain(RobTenantsComplainBean robTenantsComplain) {
-		
 		// TODO Auto-generated method stub
 		Map map=new HashMap();
 		robtenantsComplainDaoImpl.saveRobTenantsComplain(robTenantsComplain);
