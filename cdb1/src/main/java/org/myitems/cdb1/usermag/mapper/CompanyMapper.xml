@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间  -->
+<mapper namespace="org.myitems.cdb1.usermag.mapper.CompanyMapper">
+	<resultMap type="CompanyUserBean" id="CompanyUserMap">
+		<id property="id" column="id" javaType="java.lang.Long"/>
+		<result property="loginName"  column="loginName" javaType="java.lang.String"/>
+		<result property="companyName" column="companyName" javaType="java.lang.String"/> 
+		<result property="floor" column="floor" javaType="java.lang.String"/> 
+		<result property="linkMan" column="linkMan" javaType="java.lang.String"/> 
+		<result property="linkPhone" column="linkPhone" javaType="java.lang.String"/> 
+	</resultMap>
+
+	<select id="findCompanyUser" resultType="CompanyUserBean">
+	SELECT com.id AS id, com.logName AS logName,com.pwd AS pwd ,com.companyName AS companyName ,com.FLOOR AS FLOOR, com.linkMan AS linkMan ,com.linkPhone AS linkPhone
+ 	FROM t_companyuser AS com
+ 	<include refid="companymsql"></include>
+ 	ORDER BY com.id DESC  limit #{map.page},#{map.rows}
+	</select>
+		<sql id="companymsql">
+			<where>
+				<if test="map.companyName!=null ">
+					and com.companyName like CONCAT(#{map.companyName},'%')
+				</if>
+				<if test="map.floor!=null">
+					and com.floor like CONCAT(#{map.floor},'%')
+				</if>
+				<if test="map.linkMan!=null">
+					and com.linkMan like CONCAT(#{map.linkMan},'%')
+				</if>
+				<if test="map.linkPhone!=null">
+					and com.linkPhone like CONCAT(#{map.linkPhone},'%')
+				</if>	
+			</where>
+
+		</sql>
+		
+		
+		<select id="findCount" resultType="int">
+			SELECT  count(id) FROM t_companyuser 
+ 		</select>	
+
+</mapper>
